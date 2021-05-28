@@ -7,14 +7,20 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**What files will you create/edit?**
+e.g 
+A) CREATE index.js
+B) EDIT app.js
+C) EDIT app.css
 
 **Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+A clear and concise description of what you want to happen. e.g
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+A) index includes: 
+1) form for search bar
+2) links to other pages
+B) app.js includes:
+1) something else
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
