@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS users, sessions, categories, products CASCADE;
+DROP TABLE IF EXISTS users, languages, connections, sessions CASCADE;
 CREATE TABLE "users" (
   "id" int PRIMARY KEY,
   "name" text,
