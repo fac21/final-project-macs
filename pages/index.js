@@ -1,7 +1,4 @@
-import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import Layout from "../components/Layout";
 
 export default function Home() {
@@ -19,13 +16,17 @@ export default function Home() {
       <div>
         <section>
           <Link href="/profiles">
-            <a>Profiles</a>
+            <a>
+              <h2>Profiles</h2>
+              See who else is here and connect with them!
+            </a>
           </Link>
         </section>
         {/* <section>
           Events
         </section> */}
       </div>
+      <div>Contact Us</div>
     </Layout>
   );
 }
