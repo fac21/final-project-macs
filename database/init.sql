@@ -1,3 +1,6 @@
+BEGIN;
+
+DROP TABLE IF EXISTS users, sessions, categories, products CASCADE;
 CREATE TABLE "users" (
   "id" int PRIMARY KEY,
   "name" text,
@@ -28,3 +31,5 @@ CREATE TABLE "sessions" (
 ALTER TABLE "languages" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "connections" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+
+COMMIT;
