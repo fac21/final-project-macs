@@ -2,5 +2,10 @@
     "extends": ["eslint:recommended", "react-minimal"],
     "rules": {
       "react/react-in-jsx-scope": "off"
-    }
+    },
+    "env": {
+      "node": true,
+      "commonjs": true
+   }
   }
+ 
