@@ -19,8 +19,7 @@ function createSession(sid, dataObj) {
 
 function deleteSession(sid) {
   const DELETE_SESSION = `DELETE FROM sessions WHERE sid=$1`;
-  return db
-    .query(DELETE_SESSION, [sid]);
+  return db.query(DELETE_SESSION, [sid]);
 }
 
 function getSession(sid) {
@@ -34,11 +33,17 @@ function getSession(sid) {
 function getUser(email) {
   const selectUser = `
   SELECT id, name, email, password, gender FROM users WHERE email=$1;`;
-  return db.query(selectUser, [email])
-  .then((result) => {
+  return db.query(selectUser, [email]).then((result) => {
     return result.rows[0];
-  
-  })
+  });
+}
+
+function getProfiles() {
+  const selectProfiles = `SELECT name, gender FROM users`;
+  return db.query(selectProfiles).then((result) => {
+    console.log(result.rows);
+    return result.rows;
+  });
 }
 
 module.exports = {
@@ -46,5 +51,6 @@ module.exports = {
   createSession,
   getSession,
   getUser,
-  deleteSession
+  deleteSession,
+  getProfiles,
 };
