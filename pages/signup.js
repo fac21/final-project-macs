@@ -5,7 +5,7 @@ import { parseCookies } from "../lib/parseCookies";
 import Head from 'next/head'
 
 
-const Signup = ({ initialRememberValue = "sdfgsdfg" }) => {
+const Signup = () => {
   const [username, setUsername] = useState("");
 
 function updateCookie() {
@@ -35,12 +35,12 @@ function updateCookie() {
   </Layout>)
 }
 
-Signup.getInitialProps = ({ req }) => {
-  const cookies = parseCookies(req);
+// Signup.getInitialProps = ({ req }) => {
+//   const cookies = parseCookies(req);
 
-  return {
-    initialRememberValue: cookies.rememberMe
-  };
-};
+//   return {
+//     initialValue: cookies
+//   };
+// };
 
 export default Signup;
