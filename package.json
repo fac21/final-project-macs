@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "cypress open"
+    "test": "cypress open",
+    "chat": "nodemon chatserver.js"
   },
   "dependencies": {
     "cookie": "^0.4.1",
@@ -27,6 +28,7 @@
     "eslint": "^7.27.0",
     "eslint-config-react-minimal": "^2.0.0",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-react": "^7.24.0"
+    "eslint-plugin-react": "^7.24.0",
+    "nodemon": "^2.0.7"
   }
 }

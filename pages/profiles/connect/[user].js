@@ -16,14 +16,12 @@ export default function Connect() {
     listMsg: [],
   });
   const [loggedUser, setLoggedUser] = useState();
-  console.log(loggedUser);
   useEffect(() => {
     // subscribe a new user
     socket.emit("login", "username");
     // list of connected users
     socket.on("users", (data) => {
       setUser({ usersList: JSON.parse(data) });
-      console.log("THIS IS WORKING");
     });
     // get the logged user
     socket.on("connecteduser", (data) => {
@@ -52,24 +50,6 @@ export default function Connect() {
           {" "}
           Connected users : {user.usersList?.length}{" "}
         </h3>
-        <table className="table">
-          <thead>
-            <tr>
-              <th> User name </th>
-              <th> Connection Date </th>
-            </tr>
-          </thead>
-          <tbody>
-            {user.usersList?.map((user) => {
-              return (
-                <tr key={user.id}>
-                  <td> {user.userName} </td>
-                  <td> {user.connectionTime} </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
         <h3 className="d-flex justify-content-center">
           {" "}
           User : {loggedUser?.userName}{" "}
