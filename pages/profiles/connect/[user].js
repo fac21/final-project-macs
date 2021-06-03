@@ -46,43 +46,26 @@ export default function Connect() {
   return (
     <Layout>
       <div>
-        <h3 className="d-flex justify-content-center">
-          {" "}
-          Connected users : {user.usersList?.length}{" "}
-        </h3>
-        <h3 className="d-flex justify-content-center">
-          {" "}
-          User : {loggedUser?.userName}{" "}
-        </h3>
-        <div style={{ borderStyle: "inset" }}>
-          <h2 className="d-flex justify-content-center"> Chat </h2>
+        <h3> Connected users : {user.usersList?.length} </h3>
+        <h3> User : {loggedUser?.userName} </h3>
+        <div>
+          <h2> Chat </h2>
           {recMsg.listMsg?.map((msgInfo, index) => {
             return (
-              <div className="d-flex justify-content-center" key={index}>
+              <div key={index}>
                 {" "}
                 <b>{msgInfo.userName} </b> : {msgInfo.msg}{" "}
-                <small
-                  style={{
-                    marginLeft: "18px",
-                    color: "blue",
-                    marginTop: "5px",
-                  }}
-                >
-                  {" "}
-                  {msgInfo.time}{" "}
-                </small>{" "}
+                <small> {msgInfo.time} </small>{" "}
               </div>
             );
           })}
         </div>
-        <div className="d-flex justify-content-center">
+        <div>
           <input
-            style={{ width: "300px", display: "inline" }}
             id="inputmsg"
             onChange={(event) => setMsg(event.target.value)}
           />
           <button
-            className="btn btn-info"
             id="btnmsg"
             onClick={() => {
               sendMessage();
