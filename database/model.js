@@ -41,9 +41,17 @@ function getUser(email) {
 function getProfiles() {
   const selectProfiles = `SELECT name, gender FROM users`;
   return db.query(selectProfiles).then((result) => {
-    console.log(result.rows);
     return result.rows;
   });
+}
+
+function getConnection(userOne, userTwo) {
+  const connection = `
+  SELECT hash_string, user_one, user_two FROM connections WHERE user_one=$1 AND user_two=$2`
+  return db.query(connection, [userOne, userTwo]).then((result) => {
+    console.log(result.rows);
+    return result.rows[0]
+  })
 }
 
 module.exports = {
@@ -53,4 +61,5 @@ module.exports = {
   getUser,
   deleteSession,
   getProfiles,
+  getConnection
 };

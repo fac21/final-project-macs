@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import { Client } from "pg";
+//import { Client } from "pg";
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL || "http://localhost:3000",
-});
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL || "http://localhost:3000",
+// });
 
 const options = {
   site: process.env.DATABASE_URL,

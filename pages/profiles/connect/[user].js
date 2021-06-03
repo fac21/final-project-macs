@@ -1,4 +1,5 @@
-import Layout from "../../../components/Layout";
+import Header from "../../../components/Header"
+import Layout from "../../../components/Layout"
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 // import userGen from "username-generator"
@@ -15,7 +16,7 @@ export default function Connect() {
   const [recMsg, setRecMsg] = useState({
     listMsg: [],
   });
-  const [loggedUser, setLoggedUser] = useState();
+  const [loggedUser, setLoggedUser] = useState("logged in user");
   useEffect(() => {
     // subscribe a new user
     socket.emit("login", "username");
@@ -44,6 +45,8 @@ export default function Connect() {
   };
 
   return (
+    <>
+    <Header />
     <Layout>
       <div>
         <h3> Connected users : {user.usersList?.length} </h3>
@@ -77,5 +80,6 @@ export default function Connect() {
         </div>
       </div>
     </Layout>
+    </>
   );
 }
