@@ -33,7 +33,7 @@ CREATE TABLE connections (
 CREATE TABLE sessions (
   sid TEXT PRIMARY KEY,
   data JSON NOT NULL
-)
+);
 
 INSERT INTO users (name, email, password, gender, email_verified, image, created_at, updated_at) VALUES 
 ('Amy', 'LamyKunah@live.com', 'Iamanidiot', 'female', 'true', '', (SELECT CURRENT_TIMESTAMP), (SELECT CURRENT_TIMESTAMP) ), 
@@ -41,10 +41,10 @@ INSERT INTO users (name, email, password, gender, email_verified, image, created
  ('Maryam', 'mg5640041@gmail.com', 'me2293403', 'female', 'true', '', (SELECT CURRENT_TIMESTAMP), (SELECT CURRENT_TIMESTAMP));
 
 
-INSERT INTO languages (user_id, language, proficiency) VALUES (1, 'spanish', 'fluent'), (1, 'french', 'beginner'), (1, 'english', 'native');
+INSERT INTO languages (user_id, language, proficiency) VALUES (1, 'spanish', 'fluent'), (1, 'french', 'beginner'), (1, 'english', 'native'),
 (3, 'arabic', 'social');
 
-INSERT INTO connections (user_id, woman, man, non_binary, anyone) VALUES (1, 'true', 'false', 'true', 'false')
+INSERT INTO connections (user_id, woman, man, non_binary, anyone) VALUES (1, 'true', 'false', 'true', 'false'),
 (3, 'true', 'false', 'false', 'false');
 
 ALTER TABLE languages ADD FOREIGN KEY (user_id) REFERENCES users (id);

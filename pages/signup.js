@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
 import Cookie from "js-cookie";
-//import { parseCookies } from "../lib/parseCookies";
+import { parseCookies } from "../lib/parseCookies";
 import Head from "next/head";
 
 const Signup = () => {
@@ -10,7 +10,6 @@ const Signup = () => {
   function updateCookie() {
     Cookie.set("username", username);
   }
-
   return (
     <Layout>
       <div>
@@ -20,13 +19,72 @@ const Signup = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div>
-          <form>
-            username
+          <h1>Sign up</h1>
+          <form action="" method="POST">
+            <label htmlFor="name">
+              Name
+              <span aria-hidden="true">*</span>
+            </label>
             <input
+              id="name"
+              name="name"
               type="text"
-              name="usernameInput"
+              required
               onKeyUp={(e) => setUsername(e.target.value)}
             />
+            <label htmlFor="email">
+              Email address
+              <span aria-hidden="true">*</span>
+            </label>
+            <input id="email" name="email" type="email" required />
+            <label htmlFor="password">
+              Password
+              <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              aria-describedby="passwordRequirements"
+              required
+            />
+            {/* Test*/}
+            <label htmlFor="password">
+              Gender
+              <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="gender"
+              name="gender"
+              type="gender"
+              aria-describedby="genderedRequirements"
+              required
+            />
+
+            <label htmlFor="password">
+              Gender
+              <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="gender"
+              name="gender"
+              type="gender"
+              aria-describedby="genderedRequirements"
+              required
+            />
+
+            <label htmlFor="imageUrl">
+              Image Url
+              <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="imageUrl"
+              name="imageUrl"
+              type="imageUrl"
+              aria-describedby="imageUrlRequirements"
+              required
+            />
+
             <button type="submit" onClick={() => updateCookie()}>
               submit
             </button>
@@ -35,6 +93,14 @@ const Signup = () => {
       </div>
     </Layout>
   );
+};
+
+Signup.getInitialProps = ({ req }) => {
+  const cookies = parseCookies(req);
+
+  return {
+    initialRememberValue: cookies.rememberMe,
+  };
 };
 // Signup.getInitialProps = ({ req }) => {
 //   const cookies = parseCookies(req);
