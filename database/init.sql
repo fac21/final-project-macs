@@ -28,6 +28,12 @@ CREATE TABLE sessions (
   data json
 );
 
+CREATE TABLE chats (
+  hash_string text,
+  user_one int REFERENCES users (id),
+  user_two int REFERENCES users (id)
+);
+
 INSERT INTO users (name, email, password, gender) VALUES ('Amy', 'LamyKunah@live.com', 'Iamanidiot', 'female');
 INSERT INTO users (name, email, password, gender) VALUES ('Crag', 'Cragalag@live.com', 'Iamthebest', 'non_binary');
 
