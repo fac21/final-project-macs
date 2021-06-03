@@ -19,13 +19,66 @@ const Signup = ({ initialRememberValue = "sdfgsdfg" }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div>
-          <form>
-            username
+          <h1>Sign up</h1>
+          <form action="" method="POST">
+            <label htmlFor="name">
+              Name
+              <span aria-hidden="true">*</span>
+            </label>
+            <input id="name" name="name" type="text" required />
+            <label htmlFor="email">
+              Email address
+              <span aria-hidden="true">*</span>
+            </label>
+            <input id="email" name="email" type="email" required />
+            <label htmlFor="password">
+              Password
+              <span aria-hidden="true">*</span>
+            </label>
             <input
-              type="text"
-              name="usernameInput"
-              onKeyUp={(e) => setUsername(e.target.value)}
+              id="password"
+              name="password"
+              type="password"
+              aria-describedby="passwordRequirements"
+              required
             />
+            {/* Test*/}
+            <label htmlFor="password">
+              Gender
+              <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="gender"
+              name="gender"
+              type="gender"
+              aria-describedby="genderdRequirements"
+              required
+            />
+
+            <label htmlFor="password">
+              Gender
+              <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="gender"
+              name="gender"
+              type="gender"
+              aria-describedby="genderdRequirements"
+              required
+            />
+
+            <label htmlFor="imageUrl">
+              Image Url
+              <span aria-hidden="true">*</span>
+            </label>
+            <input
+              id="imageUrl"
+              name="imageUrl"
+              type="imageUrl"
+              aria-describedby="imageUrldRequirements"
+              required
+            />
+
             <button type="submit" onClick={() => updateCookie()}>
               submit
             </button>
