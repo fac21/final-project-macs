@@ -43,19 +43,7 @@ const Signup = ({ initialRememberValue = "sdfgsdfg" }) => {
               required
             />
             {/* Test*/}
-            <label htmlFor="password">
-              Gender
-              <span aria-hidden="true">*</span>
-            </label>
-            <input
-              id="gender"
-              name="gender"
-              type="gender"
-              aria-describedby="genderdRequirements"
-              required
-            />
-
-            <label htmlFor="password">
+            <label htmlFor="gender">
               Gender
               <span aria-hidden="true">*</span>
             </label>
