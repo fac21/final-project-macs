@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "lint": "eslint .",
     "build": "next build",
     "start": "next start",
-    "test": "cypress open"
+    "test": "cypress open",
+    "stylelint": "stylelint",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "cookie": "^0.4.1",
@@ -23,6 +26,8 @@
     "eslint": "^7.27.0",
     "eslint-config-react-minimal": "^2.0.0",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-react": "^7.24.0"
-  }
+    "eslint-plugin-react": "^7.24.0",
+    "stylelint-config-standard": "^22.0.0"
+  },
+  "_id": "final-project-macs@0.1.0"
 }
