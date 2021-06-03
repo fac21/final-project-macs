@@ -1,12 +1,12 @@
 const db = require("./connection.js");
 
-function createUser(name, email, password, gender) {
+function createUser(name, email, password, gender, image) {
   const INSERT_USER = `
-  INSERT INTO users (name, email, password, gender) VALUES ($1, $2, $3, $4)
-  RETURNING id, name, email, gender
+  INSERT INTO users (name, email, password, gender, image) VALUES ($1, $2, $3, $4, $5)
+  RETURNING id, name, email, gender, image
   `;
   return db
-    .query(INSERT_USER, [name, email, password, gender])
+    .query(INSERT_USER, [name, email, password, gender, image])
     .then((result) => result.rows[0]);
 }
 

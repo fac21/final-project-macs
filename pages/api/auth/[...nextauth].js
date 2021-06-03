@@ -13,6 +13,7 @@ const options = {
       server: {
         port: 465,
         host: "smtp.gmail.com", // create a gmail address and activate less secure app access on google
+        ssl: true,
         secure: true,
         auth: {
           user: process.env.EMAIL_USERNAME,
