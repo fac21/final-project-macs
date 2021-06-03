@@ -13,9 +13,9 @@ export async function signup(username, email, password) {
   try {
     const hashedPass = await bcrypt.hash(password, 10);
     const userInfo = await createUser(username, email, hashedPass);
-    const token = jwt.sign({ userId: user.id }, APP_SECRET);
+    // const token = jwt.sign({ userId: user.id }, APP_SECRET);
     return {
-      token,
+      // token,
       userInfo,
     };
   } catch (error) {
