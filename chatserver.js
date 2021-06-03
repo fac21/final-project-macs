@@ -7,10 +7,29 @@ const index = require("./routes");
 const moment = require("moment");
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
 const cors = require("cors");
 app.use(index);
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
+
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Credentials", true);
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Methods",
+//     "GET,PUT,POST,DELETE,UPDATE,OPTIONS"
+//   );
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+//   );
+//   next();
+// });
+
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 let users = [];
 io.on("connection", (socket) => {
