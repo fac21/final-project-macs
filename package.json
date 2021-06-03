@@ -9,17 +9,24 @@
     "start": "next start",
     "test": "cypress open",
     "stylelint": "stylelint",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "chat": "nodemon chatserver.js"
   },
   "dependencies": {
     "cookie": "^0.4.1",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "js-cookie": "^2.2.1",
+    "moment": "^2.29.1",
     "next": "10.2.3",
     "next-auth": "^3.24.1",
     "pg": "^8.6.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "socket.io": "^4.1.2",
+    "socket.io-client": "^4.1.2",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "cypress": "^7.4.0",
@@ -27,7 +34,7 @@
     "eslint-config-react-minimal": "^2.0.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-react": "^7.24.0",
+    "nodemon": "^2.0.7",
     "stylelint-config-standard": "^22.0.0"
-  },
-  "_id": "final-project-macs@0.1.0"
+  }
 }

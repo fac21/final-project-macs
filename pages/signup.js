@@ -1,10 +1,10 @@
 import Layout from "../components/Layout";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookie from "js-cookie";
-import { parseCookies } from "../lib/parseCookies";
+//import { parseCookies } from "../lib/parseCookies";
 import Head from "next/head";
 
-const Signup = ({ initialRememberValue = "sdfgsdfg" }) => {
+const Signup = () => {
   const [username, setUsername] = useState("");
 
   function updateCookie() {
@@ -36,13 +36,7 @@ const Signup = ({ initialRememberValue = "sdfgsdfg" }) => {
     </Layout>
   );
 };
-
-Signup.getInitialProps = ({ req }) => {
-  const cookies = parseCookies(req);
-
-  return {
-    initialRememberValue: cookies.rememberMe,
-  };
-};
+// Signup.getInitialProps = ({ req }) => {
+//   const cookies = parseCookies(req);
 
 export default Signup;
