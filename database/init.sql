@@ -41,6 +41,12 @@ INSERT INTO users (name, email, password, gender, email_verified, image, created
  ('Maryam', 'mg5640041@gmail.com', 'me2293403', 'female', 'true', '', (SELECT CURRENT_TIMESTAMP), (SELECT CURRENT_TIMESTAMP));
 
 
+CREATE TABLE chats (
+  hash_string text,
+  user_one int REFERENCES users (id),
+  user_two int REFERENCES users (id)
+);
+
 INSERT INTO languages (user_id, language, proficiency) VALUES (1, 'spanish', 'fluent'), (1, 'french', 'beginner'), (1, 'english', 'native');
 (3, 'arabic', 'social');
 
