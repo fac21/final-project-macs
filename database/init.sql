@@ -42,8 +42,6 @@ ALTER TABLE "languages" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 
 
-
-
 ALTER TABLE "connections" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 COMMIT;

@@ -1,12 +1,12 @@
 const db = require("./connection.js");
 
-function createUser(name, email, password, gender) {
+function createUser(name, email, password, gender, image) {
   const INSERT_USER = `
-  INSERT INTO users (name, email, password, gender) VALUES ($1, $2, $3, $4)
-  RETURNING id, name, email, gender
+  INSERT INTO users (name, email, password, gender, image) VALUES ($1, $2, $3, $4, $5)
+  RETURNING id, name, email, gender, image
   `;
   return db
-    .query(INSERT_USER, [name, email, password, gender])
+    .query(INSERT_USER, [name, email, password, gender, image])
     .then((result) => result.rows[0]);
 }
 
@@ -19,8 +19,7 @@ function createSession(sid, dataObj) {
 
 function deleteSession(sid) {
   const DELETE_SESSION = `DELETE FROM sessions WHERE sid=$1`;
-  return db
-    .query(DELETE_SESSION, [sid]);
+  return db.query(DELETE_SESSION, [sid]);
 }
 
 function getSession(sid) {
@@ -34,11 +33,9 @@ function getSession(sid) {
 function getUser(email) {
   const selectUser = `
   SELECT id, name, email, password, gender FROM users WHERE email=$1;`;
-  return db.query(selectUser, [email])
-  .then((result) => {
+  return db.query(selectUser, [email]).then((result) => {
     return result.rows[0];
-  
-  })
+  });
 }
 
 module.exports = {
@@ -46,5 +43,5 @@ module.exports = {
   createSession,
   getSession,
   getUser,
-  deleteSession
+  deleteSession,
 };
