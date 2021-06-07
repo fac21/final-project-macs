@@ -1,5 +1,5 @@
-import Header from "../../../components/Header"
-import Layout from "../../../components/Layout"
+import Header from "../../../components/Header";
+import Layout from "../../../components/Layout";
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 // import userGen from "username-generator"
@@ -46,40 +46,45 @@ export default function Connect() {
 
   return (
     <>
-    <Header />
-    <Layout>
-      <div>
-        <h3> Connected users : {user.usersList?.length} </h3>
-        <h3> User : {loggedUser?.userName} </h3>
+      <Header />
+      <Layout>
         <div>
-          <h2> Chat </h2>
-          {recMsg.listMsg?.map((msgInfo, index) => {
-            return (
-              <div key={index}>
-                {" "}
-                <b>{msgInfo.userName} </b> : {msgInfo.msg}{" "}
-                <small> {msgInfo.time} </small>{" "}
-              </div>
-            );
-          })}
+          <h3> Connected users : {user.usersList?.length} </h3>
+          <h3> User : {loggedUser?.userName} </h3>
+          <div>
+            <h2> Chat </h2>
+            {recMsg.listMsg?.map((msgInfo, index) => {
+              return (
+                <div key={index}>
+                  {" "}
+                  <b>{msgInfo.userName} </b> : {msgInfo.msg}{" "}
+                  <small> {msgInfo.time} </small>{" "}
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <input
+              id="inputmsg"
+              onChange={(event) => setMsg(event.target.value)}
+            />
+            <button
+              id="btnmsg"
+              onClick={() => {
+                sendMessage();
+              }}
+            >
+              {" "}
+              Send{" "}
+            </button>
+          </div>
         </div>
-        <div>
-          <input
-            id="inputmsg"
-            onChange={(event) => setMsg(event.target.value)}
-          />
-          <button
-            id="btnmsg"
-            onClick={() => {
-              sendMessage();
-            }}
-          >
-            {" "}
-            Send{" "}
-          </button>
-        </div>
-      </div>
-    </Layout>
+      </Layout>
     </>
   );
+}
+
+export function getServerSideProps(context) {
+  console.log(context.query);
+  return { props: { hi: "sevda" } };
 }

@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import { getProfiles } from "/database/model.js";
 import Miniprofile from "../components/MiniProfile";
 import Link from "next/link";
+import User from "./profiles/[user]";
 
 export default function Profiles(props) {
   return (

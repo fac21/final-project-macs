@@ -1,16 +1,18 @@
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import Link from "next/link";
-//import { getConnection } from "../../database/model.js"
+import { getChat } from "../../database/model.js";
+import { useRouter } from "next/router";
 
 export default function User(props) {
+  const router = useRouter();
   return (
     <>
       <Header />
       <Layout>
         <img src=""></img>
         <section>
-          <h2>{props.name || "Margaret"}</h2>
+          <h2>{router.query.user}</h2>
           <div>{props.flags || "Australia"}</div>
           <p>
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -34,14 +36,19 @@ export default function User(props) {
             culpa qui officia deserunt mollit anim id est laborum."
           </p>
         </section>
-        <Link href={"/profiles/connect/" + (props.name || "crystal")}>
-          <a>Connect with {props.name || "Susan"}</a>
+        <Link href={"/profiles/connect/" + props.chatString}>
+          <a>Connect with {router.query.user}</a>
         </Link>
       </Layout>
     </>
   );
 }
 
-// export function getServerSideProps(){
-//   return getConnection("Amy", "Crag");
-// }
+export async function getServerSideProps(context) {
+  let users = [context.query.user];
+  users.push(`Crag`); //get this second user from authetication
+  users.sort();
+  let chatString = await getChat(users);
+  //console.log("chatString from props user.js", chatString);
+  return { props: { chatString } };
+}

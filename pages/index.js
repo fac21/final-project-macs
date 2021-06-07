@@ -2,13 +2,12 @@ import Link from "next/link";
 import Header from "../components/HomeHeader";
 import Layout from "../components/Layout";
 
-export default function Home() {
+export default function Home(props) {
   return (
     <>
-      <Header />
+      <Header updateFormData={props.updateFormData}/>
       <Layout>
-        <div>{/* <img src=biglogo></img> */}</div>
-        <div>
+        <div>{/* <img src=biglogo></img> */}IMAGE</div>
           <section>
             <Link href="/profiles">
               <a>
@@ -20,7 +19,6 @@ export default function Home() {
           {/* <section>
           Events
         </section> */}
-        </div>
         <div>Contact Us</div>
       </Layout>
     </>

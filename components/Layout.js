@@ -15,4 +15,7 @@ S.Main = styled.main`
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  > * {
+      margin: 1rem 0;
+  }
 `;
