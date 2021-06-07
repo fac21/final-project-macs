@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import Link from "next/link";
-//import { getConnection } from "../../database/model.js"
+import { getChat } from "../../database/model.js";
 
 export default function User(props) {
   return (
@@ -42,6 +42,8 @@ export default function User(props) {
   );
 }
 
-// export function getServerSideProps(){
-//   return getConnection("Amy", "Crag");
-// }
+export function getServerSideProps() {
+  //have [user, user] then sort alphabetically, so [user1, user2]
+  //then return getChat(user_one, user_two)
+  return { props: { chatString: getChat("Amy", "Crag") } };
+}

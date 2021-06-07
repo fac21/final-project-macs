@@ -45,13 +45,13 @@ function getProfiles() {
   });
 }
 
-function getConnection(userOne, userTwo) {
-  const connection = `
-  SELECT hash_string, user_one, user_two FROM connections WHERE user_one=$1 AND user_two=$2`
-  return db.query(connection, [userOne, userTwo]).then((result) => {
+function getChat(userOne, userTwo) {
+  const chat = `
+  SELECT hash_string FROM chats WHERE user_one=$1 AND user_two=$2`;
+  return db.query(chat, [userOne, userTwo]).then((result) => {
     console.log(result.rows);
-    return result.rows[0]
-  })
+    return result.rows[0];
+  });
 }
 
 module.exports = {
@@ -61,5 +61,5 @@ module.exports = {
   getUser,
   deleteSession,
   getProfiles,
-  getConnection
+  getChat,
 };
