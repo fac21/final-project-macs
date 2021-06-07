@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Layout from "../components/Layout"
 import { getProfiles } from "/database/model.js";
 import Link from "next/link";
+import User from "./profiles/[user]";
 
 export default function Profiles(props) {
   return (

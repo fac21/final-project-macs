@@ -1,16 +1,18 @@
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import Link from "next/link";
+import { useRouter } from 'next/router'
 //import { getConnection } from "../../database/model.js"
 
 export default function User(props) {
+  const router = useRouter()
   return (
     <>
       <Header />
       <Layout>
         <img src=""></img>
         <section>
-          <h2>{props.name || "Margaret"}</h2>
+          <h2>{router.query.user}</h2>
           <div>{props.flags || "Australia"}</div>
           <p>
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -34,14 +36,15 @@ export default function User(props) {
             culpa qui officia deserunt mollit anim id est laborum."
           </p>
         </section>
-        <Link href={"/profiles/connect/" + (props.name || "crystal")}>
-          <a>Connect with {props.name || "Susan"}</a>
+        <Link href={"/profiles/connect/" + (router.query.user)}>
+          <a>Connect with {router.query.user}</a>
         </Link>
       </Layout>
     </>
   );
 }
 
+//+ 
 // export function getServerSideProps(){
 //   return getConnection("Amy", "Crag");
 // }
