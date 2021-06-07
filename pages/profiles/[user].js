@@ -36,7 +36,7 @@ export default function User(props) {
             culpa qui officia deserunt mollit anim id est laborum."
           </p>
         </section>
-        <Link href={"/profiles/connect/" + router.query.user}>
+        <Link href={"/profiles/connect/" + props.chatString}>
           <a>Connect with {router.query.user}</a>
         </Link>
       </Layout>
@@ -44,8 +44,11 @@ export default function User(props) {
   );
 }
 
-export function getServerSideProps() {
-  //have [user, user] then sort alphabetically, so [user1, user2]
-  //then return getChat(user_one, user_two)
-  return { props: { chatString: getChat("Amy", "Crag") } };
+export async function getServerSideProps(context) {
+  let users = [context.query.user];
+  users.push(`Crag`); //get this second user from authetication
+  users.sort();
+  let chatString = await getChat(users);
+  //console.log("chatString from props user.js", chatString);
+  return { props: { chatString } };
 }

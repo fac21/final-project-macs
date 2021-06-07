@@ -1,4 +1,5 @@
 const db = require("./connection.js");
+const crypto = require("crypto");
 
 function createUser(name, email, password, gender, image) {
   const INSERT_USER = `
@@ -18,12 +19,12 @@ function createSession(sid, dataObj) {
 }
 
 function deleteSession(sid) {
-  const DELETE_SESSION = `DELETE FROM sessions WHERE sid=$1`;
+  const DELETE_SESSION = `DELETE FROM sessions WHERE sid=($1)`;
   return db.query(DELETE_SESSION, [sid]);
 }
 
 function getSession(sid) {
-  const SELECT_SESSION = "SELECT data FROM sessions WHERE sid=$1";
+  const SELECT_SESSION = "SELECT data FROM sessions WHERE sid=($1)";
   return db.query(SELECT_SESSION, [sid]).then((result) => {
     const singleResult = result.rows[0];
     return singleResult && singleResult.data;
@@ -32,7 +33,7 @@ function getSession(sid) {
 
 function getUser(email) {
   const selectUser = `
-  SELECT id, name, email, password, gender FROM users WHERE email=$1;`;
+  SELECT id, name, email, password, gender FROM users WHERE email=($1);`;
   return db.query(selectUser, [email]).then((result) => {
     return result.rows[0];
   });
@@ -45,13 +46,36 @@ function getProfiles() {
   });
 }
 
-function getChat(userOne, userTwo) {
+async function getChat([userOne, userTwo]) {
+  //find those two users
+  userOne = await findUser(userOne);
+  userOne = userOne.id;
+  userTwo = await findUser(userTwo);
+  userTwo = userTwo.id;
   const chat = `
-  SELECT hash_string FROM chats WHERE user_one=$1 AND user_two=$2`;
-  return db.query(chat, [userOne, userTwo]).then((result) => {
-    console.log(result.rows);
-    return result.rows[0];
-  });
+  SELECT hash_string FROM chats WHERE user_one=($1) AND user_two=($2)`;
+  let chatString = await db
+    .query(chat, [userOne, userTwo])
+    .then((result) => result.rows[0]);
+  //console.log("pre-existing user", chatString);
+  if (chatString == undefined) {
+    chatString = await addChat(userOne, userTwo);
+  }
+  //console.log("new user or matching", chatString);
+  return chatString;
+}
+
+function addChat(userOne, userTwo) {
+  const chatString = crypto.randomBytes(10).toString("base64");
+  const INSERT_CHAT = `INSERT INTO chats (hash_string, user_one, user_two) VALUES ($1, $2, $3)`;
+  return db
+    .query(INSERT_CHAT, [chatString, userOne, userTwo])
+    .then((result) => chatString);
+}
+
+function findUser(user) {
+  const SELECT_USER = "SELECT id FROM users WHERE name=($1)";
+  return db.query(SELECT_USER, [user]).then((result) => result.rows[0]);
 }
 
 module.exports = {
