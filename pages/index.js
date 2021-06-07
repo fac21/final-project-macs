@@ -7,8 +7,7 @@ export default function Home() {
     <>
       <Header />
       <Layout>
-        <div>{/* <img src=biglogo></img> */}</div>
-        <div>
+        <div>{/* <img src=biglogo></img> */}IMAGE</div>
           <section>
             <Link href="/profiles">
               <a>
@@ -20,7 +19,6 @@ export default function Home() {
           {/* <section>
           Events
         </section> */}
-        </div>
         <div>Contact Us</div>
       </Layout>
     </>
