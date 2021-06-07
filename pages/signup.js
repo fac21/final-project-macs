@@ -62,18 +62,6 @@ const Signup = () => {
               required
             />
 
-            <label htmlFor="password">
-              Gender
-              <span aria-hidden="true">*</span>
-            </label>
-            <input
-              id="gender"
-              name="gender"
-              type="gender"
-              aria-describedby="genderedRequirements"
-              required
-            />
-
             <label htmlFor="imageUrl">
               Image Url
               <span aria-hidden="true">*</span>

@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { createSession, createUser, getUser } from "../database/model";
+import { createSession, createUser, getUser } from "../../../database/model";
 import crypto from "crypto";
 
 // will export so cookie can be set in diff places
@@ -13,9 +13,9 @@ export async function signup(username, email, password) {
   try {
     const hashedPass = await bcrypt.hash(password, 10);
     const userInfo = await createUser(username, email, hashedPass);
-    const token = jwt.sign({ userId: user.id }, APP_SECRET);
+    // const token = jwt.sign({ userId: user.id }, APP_SECRET);
     return {
-      token,
+      // token,
       userInfo,
     };
   } catch (error) {
