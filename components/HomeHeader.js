@@ -7,7 +7,7 @@ export default function HomeHeader() {
       <Link href="/signup">
         <a>Sign Up</a>
       </Link>
-      <Link href="/login">
+      <Link href="/api/auth/signin">
         <a>Log In</a>
       </Link>
     </S.Header>
