@@ -20,5 +20,9 @@ S.Header = styled.header`
   background-color: aliceblue;
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   padding: 1rem;
+  > * {
+      margin: 0 1rem 0 0;
+  }
 `;
