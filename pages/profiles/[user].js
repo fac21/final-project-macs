@@ -1,11 +1,11 @@
 import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import Link from "next/link";
-import { useRouter } from 'next/router'
-//import { getConnection } from "../../database/model.js"
+import { getChat } from "../../database/model.js";
+import { useRouter } from "next/router";
 
 export default function User(props) {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       <Header />
@@ -36,7 +36,7 @@ export default function User(props) {
             culpa qui officia deserunt mollit anim id est laborum."
           </p>
         </section>
-        <Link href={"/profiles/connect/" + (router.query.user)}>
+        <Link href={"/profiles/connect/" + props.chatString}>
           <a>Connect with {router.query.user}</a>
         </Link>
       </Layout>
@@ -44,7 +44,11 @@ export default function User(props) {
   );
 }
 
-//+ 
-// export function getServerSideProps(){
-//   return getConnection("Amy", "Crag");
-// }
+export async function getServerSideProps(context) {
+  let users = [context.query.user];
+  users.push(`Crag`); //get this second user from authetication
+  users.sort();
+  let chatString = await getChat(users);
+  //console.log("chatString from props user.js", chatString);
+  return { props: { chatString } };
+}
