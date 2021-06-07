@@ -1,7 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-export default function HomeHeader() {
+export default function HomeHeader(props) {
+  console.log("header", props)
   return (
     <S.Header>
       <Link href="/signup">
