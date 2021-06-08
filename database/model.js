@@ -61,16 +61,20 @@ async function getChat([userOne, userTwo]) {
   if (chatString == undefined) {
     chatString = await addChat(userOne, userTwo);
   }
-  //console.log("new user or matching", chatString);
+  console.log("new user or matching", chatString);
   return chatString;
 }
 
 function addChat(userOne, userTwo) {
-  const chatString = crypto.randomBytes(10).toString("base64");
+  const chatString = crypto.randomBytes(10).toString("hex");
   const INSERT_CHAT = `INSERT INTO chats (hash_string, user_one, user_two) VALUES ($1, $2, $3)`;
   return db
     .query(INSERT_CHAT, [chatString, userOne, userTwo])
-    .then((result) => chatString);
+    .then((result) => {
+      {
+        hash_string: chatString;
+      }
+    });
 }
 
 function findUser(user) {
