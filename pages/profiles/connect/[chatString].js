@@ -2,7 +2,7 @@ import Header from "../../../components/Header";
 import Layout from "../../../components/Layout";
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
-//const socketIo = require("socket.io");
+import { signIn, signOut, useSession } from "next-auth/client";
 
 // import userGen from "username-generator"
 // import { Button, Input } from 'reactstrap';
@@ -11,11 +11,14 @@ const ENDPOINT = "http://127.0.0.1:4001";
 const socket = socketIOClient(ENDPOINT);
 
 export default function Connect(props) {
+  const [session, loading] = useSession();
+
   const room = props.chatString;
   // socket.on("connection", function () {
   //   console.log("connected");
   //   socket.emit("room", room);
   // });
+  socket.emit("joinRoom", room);
 
   const [user, setUser] = useState({
     usersList: null,
@@ -26,8 +29,7 @@ export default function Connect(props) {
   });
   // const [loggedUser, setLoggedUser] = useState("logged in user");
   useEffect(() => {
-    // subscribe a new user
-    // socket.emit("login", "username");
+    socket.emit("login", session.user.name);
     // list of connected users
     socket.on("users", (data) => {
       setUser({ usersList: JSON.parse(data) });
@@ -37,21 +39,21 @@ export default function Connect(props) {
     //   setLoggedUser(JSON.parse(data));
     // });
 
-    socket.emit("joinRoom", room);
-
     // we get the messages
     socket.on("message", (data) => {
+      //console.log("data", data);
       let listMessages = recMsg.listMsg;
       //add new message into array
       listMessages.push(JSON.parse(data));
       //update received message to be the list of messages
       setRecMsg({ listMsg: listMessages });
+      console.log(recMsg);
     });
   }, []);
 
   // to send a message
   const sendMessage = () => {
-    socket.emit("sendMsg", { id: "Cragalag", msg });
+    socket.emit("sendMsg", { id: socket.id, msg });
   };
 
   useEffect(() => {

@@ -20,22 +20,31 @@ const io = socketIo(server, {
 let users = [];
 io.on("connection", (socket) => {
   socket.on("joinRoom", (roomID) => {
-    console.log("room joined");
+    //console.log("room joined");
     socket.join(roomID);
-    users.push({
-      id: socket.id,
-      // userName: userName,
-      connectionTime: new moment().format("YYYY-MM-DD HH:mm:ss"),
+    socket.on("login", (userName) => {
+      console.log("username received:", userName);
+      users.push({
+        id: socket.id,
+        userName: userName,
+        connectionTime: new moment().format("YYYY-MM-DD HH:mm:ss"),
+      });
     });
 
     socket.on("sendMsg", (msgTo) => {
       console.log("recieve message", msgTo);
       const minutes = new Date().getMinutes();
+      // console.log("msgTo", msgTo);
+      // console.log(
+      //   "usersfind",
+      //   users,
+      //   users.find((e) => e.id == msgTo.id)
+      // );
       io.to(roomID).emit(
         "message",
         JSON.stringify({
           id: socket.id,
-          //userName: users.find((e) => e.id == msgTo.id).userName,
+          userName: users.find((e) => e.id == msgTo.id).userName,
           msg: msgTo.msg,
           time:
             new Date().getHours() +

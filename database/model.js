@@ -61,7 +61,7 @@ async function getChat([userOne, userTwo]) {
   if (chatString == undefined) {
     chatString = await addChat(userOne, userTwo);
   }
-  console.log("new user or matching", chatString);
+  //console.log("new user or matching", chatString);
   return chatString;
 }
 
