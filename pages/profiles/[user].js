@@ -5,7 +5,8 @@ import { getChat } from "../../database/model.js";
 import { useRouter } from "next/router";
 
 export default function User(props) {
-  //console.log(props.chatString.hash_string);
+  //console.log("props User", props);
+  console.log("props User chat String", props.chatString.hash_string);
   const router = useRouter();
   return (
     <>
@@ -49,8 +50,8 @@ export async function getServerSideProps(context) {
   let users = [context.query.user];
   users.push(`Crag`); //get this second user from authetication
   users.sort();
-  let chatString = await getChat(users);
+  //let chatString = await getChat(users);
   //console.log("serversideprops", chatString);
   //console.log("chatString from props user.js", chatString.hash_string);
-  return { props: { chatString } };
+  return { props: { chatString: await getChat(users) } };
 }

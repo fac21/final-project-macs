@@ -68,9 +68,9 @@ function addChat(userOne, userTwo) {
   return db
     .query(INSERT_CHAT, [chatString, userOne, userTwo])
     .then((result) => {
-      {
-        hash_string: chatString;
-      }
+      return {
+        hash_string: chatString,
+      };
     });
 }
 
