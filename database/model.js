@@ -46,6 +46,17 @@ function getProfiles() {
   });
 }
 
+function getUserId(sessionEmail) {
+  const userId = `SELECT id FROM users WHERE email=($1) )`;
+  console.log(userId);
+  return db.query(userId, [sessionEmail]).then((result) => result.rows[0]);
+}
+
+// function getPreferredGender(){
+//   const PreferredGender = `SELECT .... FROM connections WHERE (SELECT email FROM users WHERE  )`;
+//   return db.query(SELECT_PRODUCT, [id]).then((result) => result.rows[0]);
+// }
+
 async function getChat([userOne, userTwo]) {
   //find those two users
   userOne = await findUser(userOne);
@@ -86,4 +97,5 @@ module.exports = {
   deleteSession,
   getProfiles,
   getChat,
+  getUserId,
 };
