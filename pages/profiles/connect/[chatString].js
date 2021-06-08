@@ -10,11 +10,12 @@ import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://127.0.0.1:4001";
 const socket = socketIOClient(ENDPOINT);
 
-export default function Connect() {
+export default function Connect(props) {
   const room = props.chatString;
-  socket.on("connectToRoom", function () {
-    socket.emit("room", room);
-  });
+  // socket.on("connection", function () {
+  //   console.log("connected");
+  //   socket.emit("room", room);
+  // });
 
   const [user, setUser] = useState({
     usersList: null,
@@ -23,21 +24,23 @@ export default function Connect() {
   const [recMsg, setRecMsg] = useState({
     listMsg: [],
   });
-  const [loggedUser, setLoggedUser] = useState("logged in user");
+  // const [loggedUser, setLoggedUser] = useState("logged in user");
   useEffect(() => {
     // subscribe a new user
-    socket.to(room).emit("login", "username");
+    // socket.emit("login", "username");
     // list of connected users
     socket.on("users", (data) => {
       setUser({ usersList: JSON.parse(data) });
     });
     // get the logged user
-    socket.on("connecteduser", (data) => {
-      setLoggedUser(JSON.parse(data));
-    });
+    // socket.on("connecteduser", (data) => {
+    //   setLoggedUser(JSON.parse(data));
+    // });
+
+    socket.emit("joinRoom", room);
 
     // we get the messages
-    socket.on("getMsg", (data) => {
+    socket.on("message", (data) => {
       let listMessages = recMsg.listMsg;
       //add new message into array
       listMessages.push(JSON.parse(data));
@@ -48,18 +51,22 @@ export default function Connect() {
 
   // to send a message
   const sendMessage = () => {
-    socket
-      .to(room)
-      .emit("sendMsg", JSON.stringify({ id: loggedUser.id, msg: msg }));
+    socket.emit("sendMsg", { id: "Cragalag", msg });
   };
+
+  useEffect(() => {
+    return () => {
+      socket.emit("leaveRoom");
+    };
+  }, []);
 
   return (
     <>
       <Header />
       <Layout>
         <div>
-          <h3> Connected users : {user.usersList?.length} </h3>
-          <h3> User : {loggedUser?.userName} </h3>
+          {/* <h3> Connected users : {user.usersList?.length} </h3> */}
+          {/* <h3> User : {loggedUser?.userName} </h3> */}
           <div>
             <h2> Chat </h2>
             {recMsg.listMsg?.map((msgInfo, index) => {
