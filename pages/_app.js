@@ -5,7 +5,7 @@ import { FormGroup } from "@material-ui/core";
 
 //To avoid checking the session twice on pages that support both server and client-side rendering.
 function App({ Component, pageProps, }) {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ connections: new Set([]), languages: new Set([]) });
 const updateFormData = (newData) => {
   setFormData({ ...formData, ...newData });
 };
