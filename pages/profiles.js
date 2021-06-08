@@ -22,7 +22,9 @@ function profilesInfo(props) {
   profiles = JSON.parse(profiles);
   //an array of objects
   return profiles.map((user) => {
-    return <Miniprofile></Miniprofile>;
+    return (
+      <Miniprofile name={user.name} src={user.image} gender={user.gender} />
+    );
   });
 }
 
