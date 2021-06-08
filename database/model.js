@@ -1,14 +1,11 @@
 const db = require("./connection.js");
 const crypto = require("crypto");
 
-function createUser(name, email, password, gender, image) {
-  const INSERT_USER = `
-  INSERT INTO users (name, email, password, gender, image) VALUES ($1, $2, $3, $4, $5)
-  RETURNING id, name, email, gender, image
-  `;
+function createUser(name, email, gender) {
+  const INSERT_USER = `INSERT INTO users (name, email, gender) VALUES ($1, $2, $3)`;
   return db
-    .query(INSERT_USER, [name, email, password, gender, image])
-    .then((result) => result.rows[0]);
+    .query(INSERT_USER, [name, email, gender])
+    .then((result) => console.log(result));
 }
 
 function createSession(sid, dataObj) {
