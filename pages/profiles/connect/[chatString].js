@@ -18,7 +18,6 @@ export default function Connect(props) {
   //   console.log("connected");
   //   socket.emit("room", room);
   // });
-  socket.emit("joinRoom", room);
 
   const [user, setUser] = useState({
     usersList: null,
@@ -29,7 +28,6 @@ export default function Connect(props) {
   });
   // const [loggedUser, setLoggedUser] = useState("logged in user");
   useEffect(() => {
-    socket.emit("login", session.user.name);
     // list of connected users
     socket.on("users", (data) => {
       setUser({ usersList: JSON.parse(data) });
@@ -57,6 +55,7 @@ export default function Connect(props) {
   };
 
   useEffect(() => {
+    socket.emit("joinRoom", { room, userName: session.user.name });
     return () => {
       socket.emit("leaveRoom");
     };
