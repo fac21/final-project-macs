@@ -8,6 +8,10 @@ import Providers from "next-auth/providers";
 
 const options = {
   site: process.env.DATABASE_URL,
+  session: {
+    jwt: true,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   providers: [
     Providers.Email({
       server: {

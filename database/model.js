@@ -40,7 +40,7 @@ function getUser(email) {
 }
 
 function getProfiles() {
-  const selectProfiles = `SELECT name, gender FROM users`;
+  const selectProfiles = `SELECT name, gender, image FROM users`;
   return db.query(selectProfiles).then((result) => {
     return result.rows;
   });
