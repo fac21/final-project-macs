@@ -2,6 +2,8 @@ import Header from "../../../components/Header";
 import Layout from "../../../components/Layout";
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
+//const socketIo = require("socket.io");
+
 // import userGen from "username-generator"
 // import { Button, Input } from 'reactstrap';
 
@@ -9,6 +11,11 @@ const ENDPOINT = "http://127.0.0.1:4001";
 const socket = socketIOClient(ENDPOINT);
 
 export default function Connect() {
+  const room = props.chatString;
+  socket.on("connectToRoom", function () {
+    socket.emit("room", room);
+  });
+
   const [user, setUser] = useState({
     usersList: null,
   });
@@ -19,7 +26,7 @@ export default function Connect() {
   const [loggedUser, setLoggedUser] = useState("logged in user");
   useEffect(() => {
     // subscribe a new user
-    socket.emit("login", "username");
+    socket.to(room).emit("login", "username");
     // list of connected users
     socket.on("users", (data) => {
       setUser({ usersList: JSON.parse(data) });
@@ -41,7 +48,9 @@ export default function Connect() {
 
   // to send a message
   const sendMessage = () => {
-    socket.emit("sendMsg", JSON.stringify({ id: loggedUser.id, msg: msg }));
+    socket
+      .to(room)
+      .emit("sendMsg", JSON.stringify({ id: loggedUser.id, msg: msg }));
   };
 
   return (
@@ -85,6 +94,10 @@ export default function Connect() {
 }
 
 export function getServerSideProps(context) {
-  console.log(context.query);
-  return { props: { hi: "sevda" } };
+  const chatString = context.query.chatString;
+  //console.log(chatString);
+  // socketIo.on("connection", (socket) => {
+  //   socket.join(chatString);
+  // });
+  return { props: { chatString } };
 }
