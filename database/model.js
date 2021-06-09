@@ -30,29 +30,36 @@ function getSession(sid) {
 
 function getUser(email) {
   const selectUser = `
-  SELECT id, name, email, password, gender FROM users WHERE email=($1);`;
+  SELECT * FROM users WHERE email=($1);`;
   return db.query(selectUser, [email]).then((result) => {
     return result.rows[0];
   });
 }
 
-function getProfiles() {
-  const selectProfiles = `SELECT name, gender, image FROM users`;
-  return db.query(selectProfiles).then((result) => {
+async function getProfiles(email) {
+  const userInfo = await getUser(email);
+  console.log("userInfo", userInfo);
+  const gender = userInfo.gender;
+  const id = userInfo.id;
+  const genderPreferences = await getConnections(id);
+  console.log(genderPreferences);
+  const filteredProfiles = "hi";
+  //const selectProfiles = `SELECT name, gender, image FROM users`;
+  return db.query(filteredProfiles).then((result) => {
     return result.rows;
   });
 }
 
-function getUserId(sessionEmail) {
-  const userId = `SELECT id FROM users WHERE email=($1) )`;
-  console.log(userId);
-  return db.query(userId, [sessionEmail]).then((result) => result.rows[0]);
-}
-
-// function getPreferredGender(){
-//   const PreferredGender = `SELECT .... FROM connections WHERE (SELECT email FROM users WHERE  )`;
-//   return db.query(SELECT_PRODUCT, [id]).then((result) => result.rows[0]);
+// function getUserId(sessionEmail) {
+//   const userId = `SELECT user_id FROM users WHERE email=($1) )`;
+//   console.log(userId);
+//   return db.query(userId, [sessionEmail]).then((result) => result.rows[0]);
 // }
+
+function getConnections(id) {
+  const preferredGenders = `SELECT * FROM connections WHERE user_id=($1)`;
+  return db.query(preferredGenders, [id]).then((result) => result.rows[0]);
+}
 
 async function getChat([userOne, userTwo]) {
   //find those two users
@@ -96,5 +103,5 @@ module.exports = {
   deleteSession,
   getProfiles,
   getChat,
-  getUserId,
+  // getUserId,
 };

@@ -4,6 +4,7 @@ import { getProfiles } from "/database/model.js";
 import Miniprofile from "../components/MiniProfile";
 import Link from "next/link";
 import User from "./profiles/[user]";
+import { getSession } from "next-auth/client";
 
 export default function Profiles(props) {
   return (
@@ -28,8 +29,10 @@ function profilesInfo(props) {
   });
 }
 
-export async function getServerSideProps() {
-  let profiles = await getProfiles();
+export async function getServerSideProps(context) {
+  let sessionInfo = await getSession(context);
+  let email = sessionInfo.user.email;
+  let profiles = await getProfiles(email);
   profiles = JSON.stringify(profiles);
   return { props: { profiles } };
 }

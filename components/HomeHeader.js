@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { signIn, signOut, useSession } from "next-auth/client";
-import { getUserId } from "../database/model";
+import { signOut, useSession } from "next-auth/client";
+// import { getUserId } from "../database/model";
 
 export default function HomeHeader(props) {
   const [session, loading] = useSession();
@@ -26,7 +26,6 @@ export default function HomeHeader(props) {
       {session && (
         <>
           Hello {session.user.name} <br />
-          {/* <button onClick={props}>click</button> */}
           <button onClick={signOut}>Sign out</button>
         </>
       )}
@@ -47,7 +46,8 @@ S.Header = styled.header`
   }
 `;
 
-export async function getServerSideProps() {
-  let userId = await getUserId(email);
-  return { props: { userId } };
-}
+// export async function getServerSideProps() {
+//   let userInfo = await getUser(email);
+//   console.log(userInfo);
+//   return { props: { userInfo.id } };
+// }
