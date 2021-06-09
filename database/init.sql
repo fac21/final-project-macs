@@ -51,7 +51,8 @@ CREATE TABLE sessions (
 INSERT INTO users (name, email, gender, email_verified, image, created_at, updated_at) VALUES 
 ( 'Amy', 'amykuner@live.com', 'female',(SELECT CURRENT_TIMESTAMP),'./public/images/avator.png',(SELECT CURRENT_TIMESTAMP),(SELECT CURRENT_TIMESTAMP)),
 ('Crag','Cragalag@live.com','non_binary',(SELECT CURRENT_TIMESTAMP),'./public/images/avator.png',(SELECT CURRENT_TIMESTAMP),(SELECT CURRENT_TIMESTAMP)),
-('Maryam','mg5640041@gmail.com','female',(SELECT CURRENT_TIMESTAMP),'./public/images/avator.png',(SELECT CURRENT_TIMESTAMP),(SELECT CURRENT_TIMESTAMP));
+('Maryam','mg5640041@gmail.com','female',(SELECT CURRENT_TIMESTAMP),'./public/images/avator.png',(SELECT CURRENT_TIMESTAMP),(SELECT CURRENT_TIMESTAMP)),
+('AmyK', 'amykuner1@live.com', 'female',(SELECT CURRENT_TIMESTAMP),'./public/images/avator.png',(SELECT CURRENT_TIMESTAMP),(SELECT CURRENT_TIMESTAMP));
 
 CREATE TABLE chats (
   hash_string text,
