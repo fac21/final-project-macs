@@ -19,23 +19,25 @@ const io = socketIo(server, {
 
 let users = [];
 io.on("connection", (socket) => {
-  socket.on("joinRoom", (roomID) => {
-    console.log("room joined");
+  socket.on("joinRoom", ({ roomID, userName }) => {
+    //console.log("room joined");
     socket.join(roomID);
+    console.log("username received:", userName);
     users.push({
       id: socket.id,
-      // userName: userName,
+      userName: userName,
       connectionTime: new moment().format("YYYY-MM-DD HH:mm:ss"),
     });
 
     socket.on("sendMsg", (msgTo) => {
       console.log("recieve message", msgTo);
+      console.log("users", users);
       const minutes = new Date().getMinutes();
       io.to(roomID).emit(
         "message",
         JSON.stringify({
           id: socket.id,
-          //userName: users.find((e) => e.id == msgTo.id).userName,
+          userName: users.find((e) => e.id == msgTo.id).userName,
           msg: msgTo.msg,
           time:
             new Date().getHours() +

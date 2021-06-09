@@ -6,7 +6,7 @@ export default function Miniprofile(props) {
     <>
       <Link href={"/profiles/" + props.name}>
         <a>
-          <img src={props.image} alt="avator" width={30} height={30} />
+          <img src={props.image} alt="avatar" width={30} height={30} />
           <h2>{props.name}</h2>
           <p>{props.gender}</p>
         </a>

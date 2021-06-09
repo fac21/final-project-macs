@@ -8,7 +8,7 @@ export default function HomeHeader(props) {
   if (loading) {
     return <p>Loading...</p>;
   }
-  console.log("header", props);
+  //console.log("header", props);
   return (
     <>
       {!session && (
