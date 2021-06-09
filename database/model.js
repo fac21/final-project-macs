@@ -38,16 +38,41 @@ function getUser(email) {
 
 async function getProfiles(email) {
   const userInfo = await getUser(email);
-  console.log("userInfo", userInfo);
-  const gender = userInfo.gender;
+  //console.log(`connections. ` + userInfo.gender);
+  const userGender = `connections.` + userInfo.gender;
   const id = userInfo.id;
-  const genderPreferences = await getConnections(id);
-  console.log(genderPreferences);
-  const filteredProfiles = "hi";
+  let genderPreferences = await getConnections(id).then((result) =>
+    trueGenders(result)
+  );
+  console.log("GENDER PREFERENCES", genderPreferences);
+  // const filteredProfiles = `select users.id, users.name, users.email, users.gender, users.image
+  // from users inner join connections
+  // on users.id = connections.user_id
+  // ($1) and ($2) = true or connections.anyone = true`;
+
+  //(trueGenders(email).indexof(gender) || trueGenders(email).indexof(anyone))
+  let filteredProfiles = `select user_id from connections`;
   //const selectProfiles = `SELECT name, gender, image FROM users`;
   return db.query(filteredProfiles).then((result) => {
+    console.log(result);
     return result.rows;
   });
+}
+
+function trueGenders(object) {
+  //console.log(object);
+  let gendersString = "WHERE ";
+  let gendersArray = [];
+  for (let key in object) {
+    if (object[key] === true) {
+      gendersArray.push(key);
+      gendersString += `users.gender = ${key} OR `;
+      //console.log(gendersString);
+    }
+  }
+  gendersString = gendersString.slice(0, -3);
+  //console.log("GENDERS STRING", gendersString);
+  return gendersString;
 }
 
 // function getUserId(sessionEmail) {
@@ -55,6 +80,33 @@ async function getProfiles(email) {
 //   console.log(userId);
 //   return db.query(userId, [sessionEmail]).then((result) => result.rows[0]);
 // }
+
+/**************** Maryam is writing *************** *
+async function getProfiles(email) {
+  const userInfo = await getUser(email);
+  const id = userInfo.id;
+  let genderPreferences = await getConnections(id);
+  genderPrefences = await trueGenders(genderPreferences);
+  const preferredUsers = `SELECT * FROM users WHERE id IN (..);`;
+  return db
+    .query(filteredProfiles, [genderPreferences, userGender])
+    .then((result) => {
+      console.log(result);
+      return result.rows;
+    });
+}
+
+function trueGenders(object) {
+  let gendersArray = [];
+  for (let key in object) {
+    if (object[key] === true) {
+      gendersArray.push(key);
+    }
+  }
+  return gendersArray;
+}
+
+/******************************** */
 
 function getConnections(id) {
   const preferredGenders = `SELECT * FROM connections WHERE user_id=($1)`;
