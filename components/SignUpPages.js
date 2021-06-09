@@ -159,10 +159,10 @@ export const PageFive = (props) => (
     />
     <button onClick={props.decrementPage}>Previous</button>
     <button
-      type="submit"
-      onClick={(event, props) => {
+      type="button"
+      // type="submit"
+      onClick={(event) => {
         event.preventDefault;
-        console.log(props);
         registerUser(props.formData);
       }}
     >
@@ -172,17 +172,18 @@ export const PageFive = (props) => (
 );
 
 export async function registerUser(formData) {
-  //event.preventDefault();
-  //console.log(formData); //undefined
+  let formDataConnections = Array.from(formData.connections).join(" ");
+  let formDataLanguages = Array.from(formData.languages).join(" ");
   const res = await fetch("/api/register", {
     body: JSON.stringify({
-      name: "name",
-      email: "email",
-      gender: "gender",
-      formData: formData, //NEED TO FIND HOW TO ACCESS PROPS HERE
+      name: formData.name, //NEED TO FIND HOW TO ACCESS PROPS HERE
+      email: formData.email,
+      gender: formData.gender,
+      connections: formDataConnections,
+      languages: formDataLanguages,
     }),
     method: "POST",
   });
-
   const result = await res.json();
+  return result;
 }

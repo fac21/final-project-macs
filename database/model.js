@@ -2,31 +2,52 @@ const db = require("./connection.js");
 const crypto = require("crypto");
 
 function createUser(name, email, gender) {
-  const INSERT_USER = `INSERT INTO users (name, email, gender) VALUES ($1, $2, $3)`;
-  return db
-    .query(INSERT_USER, [name, email, gender])
-    .then((result) => console.log(result));
-}
-
-function createSession(sid, dataObj) {
-  const INSERT_SESSION = `INSERT INTO sessions (sid, data) VALUES ($1, $2) RETURNING sid`;
-  return db
-    .query(INSERT_SESSION, [sid, dataObj])
-    .then((result) => result.rows[0].sid);
-}
-
-function deleteSession(sid) {
-  const DELETE_SESSION = `DELETE FROM sessions WHERE sid=($1)`;
-  return db.query(DELETE_SESSION, [sid]);
-}
-
-function getSession(sid) {
-  const SELECT_SESSION = "SELECT data FROM sessions WHERE sid=($1)";
-  return db.query(SELECT_SESSION, [sid]).then((result) => {
-    const singleResult = result.rows[0];
-    return singleResult && singleResult.data;
+  const INSERT_USER = `INSERT INTO users (name, email, gender, image) VALUES ($1, $2, $3, './public/images/avator.png') RETURNING id`;
+  return db.query(INSERT_USER, [name, email, gender]).then((result) => {
+    return result.rows[0]; //{id: 5}
   });
+  //check this returns an id
 }
+
+function createUserConnections(id, connections) {
+  //passed a string with spaces between
+  //turn into an array
+  let connectionsArray = connections.split(" ");
+  let booleans = ["women", "men", "nb", "anyone"].map((value) => {
+    return connectionsArray.includes(value);
+  });
+  booleans.unshift(id);
+  console.log(booleans);
+  const INSERT_USER = `INSERT INTO connections (user_id, woman, man, non_binary, anyone) VALUES ($1, $2, $3, $4, $5)`;
+  return db.query(INSERT_USER, booleans).then(console.log("booleans added"));
+}
+
+function createUserLanguages(id, languages) {
+  //passed a string with spaces between
+  //turn into an array
+  //user_id, language, proficiency
+  let languagesArray = languages.split(" ");
+}
+
+// function createSession(sid, dataObj) {
+//   const INSERT_SESSION = `INSERT INTO sessions (sid, data) VALUES ($1, $2) RETURNING sid`;
+//   return db
+//     .query(INSERT_SESSION, [sid, dataObj])
+//     .then((result) => result.rows[0].sid);
+// }
+
+// function deleteSession(sid) {
+//   const DELETE_SESSION = `DELETE FROM sessions WHERE sid=($1)`;
+//   return db.query(DELETE_SESSION, [sid]);
+// }
+
+// function getSession(sid) {
+//   const SELECT_SESSION = "SELECT data FROM sessions WHERE sid=($1)";
+//   return db.query(SELECT_SESSION, [sid]).then((result) => {
+//     const singleResult = result.rows[0];
+//     return singleResult && singleResult.data;
+//   });
+// }
 
 function getUser(email) {
   const selectUser = `
@@ -149,11 +170,13 @@ function findUser(user) {
 
 module.exports = {
   createUser,
-  createSession,
-  getSession,
+  // createSession,
+  // getSession,
   getUser,
-  deleteSession,
+  //deleteSession,
   getProfiles,
   getChat,
+  createUserConnections,
+  createUserLanguages,
   // getUserId,
 };
