@@ -61,7 +61,7 @@ export const PageThree = (props) => (
       value="women"
       onChange={props.handleGenderPreference}
     />
-    <label for="women">Women</label>
+    <label htmlFor="women">Women</label>
     <input
       type="checkbox"
       id="men"
@@ -69,7 +69,7 @@ export const PageThree = (props) => (
       value="men"
       onChange={props.handleGenderPreference}
     />
-    <label for="men">Men</label>
+    <label or="men">Men</label>
     <input
       type="checkbox"
       id="nb"
@@ -77,7 +77,7 @@ export const PageThree = (props) => (
       value="nb"
       onChange={props.handleGenderPreference}
     />
-    <label for="nb">Non-binary / Other</label>
+    <label htmlFor="nb">Non-binary / Other</label>
     <button onClick={props.decrementPage}>Previous</button>
     <button onClick={props.incrementPage}>Next</button>
   </>
@@ -158,24 +158,31 @@ export const PageFive = (props) => (
       required
     />
     <button onClick={props.decrementPage}>Previous</button>
-    <button type="submit" onClick={registerUser}>
+    <button
+      type="submit"
+      onClick={(event, props) => {
+        event.preventDefault;
+        console.log(props);
+        registerUser(props.formData);
+      }}
+    >
       Submit
     </button>
   </>
 );
 
-export const registerUser = async (event) => {
-  event.preventDefault();
-
+export async function registerUser(formData) {
+  //event.preventDefault();
+  //console.log(formData); //undefined
   const res = await fetch("/api/register", {
     body: JSON.stringify({
       name: "name",
       email: "email",
       gender: "gender",
-      formData: props.formData, //NEED TO FIND HOW TO ACCESS PROPS HERE
+      formData: formData, //NEED TO FIND HOW TO ACCESS PROPS HERE
     }),
     method: "POST",
   });
 
   const result = await res.json();
-};
+}
