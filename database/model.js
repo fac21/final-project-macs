@@ -17,7 +17,6 @@ function createUserConnections(id, connections) {
     return connectionsArray.includes(value);
   });
   booleans.unshift(id);
-  console.log(booleans);
   const INSERT_USER = `INSERT INTO connections (user_id, woman, man, non_binary, anyone) VALUES ($1, $2, $3, $4, $5)`;
   return db.query(INSERT_USER, booleans).then(console.log("booleans added"));
 }
@@ -27,6 +26,14 @@ function createUserLanguages(id, languages) {
   //turn into an array
   //user_id, language, proficiency
   let languagesArray = languages.split(" ");
+  let INSERT_LANGUAGE =
+    "INSERT INTO languages (user_id, language, proficiency) VALUES ";
+  languagesArray.forEach((lang, index) => {
+    languagesArray.splice(index * 2, 0, id);
+    INSERT_LANGUAGE += `($${index * 2 + 1}, $${index * 2 + 2}, 'fluent'),`;
+  });
+  INSERT_LANGUAGE = INSERT_LANGUAGE.slice(0, -1) + ";";
+  return db.query(INSERT_LANGUAGE, languagesArray);
 }
 
 // function createSession(sid, dataObj) {
