@@ -1,8 +1,16 @@
 import { getDomainLocale } from "next/dist/next-server/lib/router/router";
 
-beforeEach(() => {
-  cy.task("resetDb");
-});
+context('Sign Up', () => {
+    beforeEach(() => {
+      cy.visit('/');
+    });
+
+    it('should click on the Sign Up section in the homepage', () => {
+      cy.get('a')
+        .contains('Sign Up')
+        .click()
+    });
+  });
 
 it("can sign up", () => {
   cy.visit("/");
