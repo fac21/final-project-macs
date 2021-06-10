@@ -3,10 +3,9 @@ import { Provider } from "next-auth/client";
 import { useState } from "react";
 import { FormGroup } from "@material-ui/core";
 
-if (typeof window === 'object') {
+if (typeof window === "object") {
   // Only load CSS doodle in browser environment
-     require('css-doodle')
-  
+  require("css-doodle");
 }
 //To avoid checking the session twice on pages that support both server and client-side rendering.
 function App({ Component, pageProps }) {
@@ -19,7 +18,6 @@ function App({ Component, pageProps }) {
     setFormData({ ...formData, ...newData });
   };
 
-
   return (
     <Provider session={pageProps.session}>
       <Component
@@ -30,7 +28,5 @@ function App({ Component, pageProps }) {
     </Provider>
   );
 }
-
-
 
 export default App;

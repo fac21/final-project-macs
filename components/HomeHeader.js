@@ -15,7 +15,7 @@ export default function HomeHeader(props) {
             <Link href="/signup">
               <a>Sign Up</a>
             </Link>
-            <Link href="/api/auth/signin">
+            <Link href="/api/auth/signIn">
               <a>Log In</a>
             </Link>
           </S.Header>
