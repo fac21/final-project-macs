@@ -39,7 +39,6 @@ export default function Profiles(props) {
 }
 
 function profilesInfo(props) {
-  //console.log(props);
   let profiles = props.profiles;
   profiles = JSON.parse(profiles);
   //an array of objects

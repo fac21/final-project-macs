@@ -3,23 +3,25 @@ import Layout from "../../components/Layout";
 import Link from "next/link";
 import { getChat } from "../../database/model.js";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
+import React, { useEffect } from "react";
+
 
 export default function User(props) {
   //console.log("props User", props);
   //console.log("props User chat String", props.chatString.hash_string);
-  const [session, loading] = useSession()
-  const router = useRouter()
+  const [session, loading] = useSession();
+  const router = useRouter();
 
- useEffect(() => {
+  useEffect(() => {
+    if (!session) {
+      router.push("/accessDenied");
+    }
+  }, []);
+
   if (!session) {
-    router.push('/accessDenied')
+    return null;
   }
- }, [])
-
- if (!session) {
-   return null
- }
 
   return (
     <>
@@ -62,9 +64,11 @@ export default function User(props) {
 export async function getServerSideProps(context) {
   let users = [context.query.user];
   let sessionInfo = await getSession(context);
-  users.push(sessionInfo.user.name); //get this second user from authetication
-  users.sort();
-  //let chatString = await getChat(users);
-  //console.log("chatString from props user.js", chatString.hash_string);
-  return { props: { chatString: await getChat(users) } };
+  if (sessionInfo) {
+    users.push(sessionInfo.user.name); //get this second user from authetication
+    users.sort();
+    return { props: { chatString: await getChat(users) } };
+  } else {
+    return { props: {} };
+  }
 }

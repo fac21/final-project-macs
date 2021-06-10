@@ -6,12 +6,9 @@ function createUser(name, email, gender) {
   return db.query(INSERT_USER, [name, email, gender]).then((result) => {
     return result.rows[0]; //{id: 5}
   });
-  //check this returns an id
 }
 
 function createUserConnections(id, connections) {
-  //passed a string with spaces between
-  //turn into an array
   let connectionsArray = connections.split(" ");
   let booleans = ["women", "men", "nb", "anyone"].map((value) => {
     return connectionsArray.includes(value);
@@ -22,9 +19,6 @@ function createUserConnections(id, connections) {
 }
 
 function createUserLanguages(id, languages) {
-  //passed a string with spaces between
-  //turn into an array
-  //user_id, language, proficiency
   let languagesArray = languages.split(" ");
   let INSERT_LANGUAGE =
     "INSERT INTO languages (user_id, language, proficiency) VALUES ";
@@ -35,26 +29,6 @@ function createUserLanguages(id, languages) {
   INSERT_LANGUAGE = INSERT_LANGUAGE.slice(0, -1) + ";";
   return db.query(INSERT_LANGUAGE, languagesArray);
 }
-
-// function createSession(sid, dataObj) {
-//   const INSERT_SESSION = `INSERT INTO sessions (sid, data) VALUES ($1, $2) RETURNING sid`;
-//   return db
-//     .query(INSERT_SESSION, [sid, dataObj])
-//     .then((result) => result.rows[0].sid);
-// }
-
-// function deleteSession(sid) {
-//   const DELETE_SESSION = `DELETE FROM sessions WHERE sid=($1)`;
-//   return db.query(DELETE_SESSION, [sid]);
-// }
-
-// function getSession(sid) {
-//   const SELECT_SESSION = "SELECT data FROM sessions WHERE sid=($1)";
-//   return db.query(SELECT_SESSION, [sid]).then((result) => {
-//     const singleResult = result.rows[0];
-//     return singleResult && singleResult.data;
-//   });
-// }
 
 function getUser(email) {
   const selectUser = `
@@ -67,74 +41,47 @@ function getUser(email) {
 async function getProfiles(email) {
   const userInfo = await getUser(email);
   //console.log(`connections. ` + userInfo.gender);
-  const userGender = `connections.` + userInfo.gender;
-  const id = userInfo.id;
-  let genderPreferences = await getConnections(id).then((result) =>
-    trueGenders(result)
-  );
-  console.log("GENDER PREFERENCES", genderPreferences);
-  // const filteredProfiles = `select users.id, users.name, users.email, users.gender, users.image
-  // from users inner join connections
-  // on users.id = connections.user_id
-  // ($1) and ($2) = true or connections.anyone = true`;
 
-  //(trueGenders(email).indexof(gender) || trueGenders(email).indexof(anyone))
-  let filteredProfiles = `select user_id from connections`;
-  //const selectProfiles = `SELECT name, gender, image FROM users`;
-  return db.query(filteredProfiles).then((result) => {
-    console.log(result);
+  const id = userInfo.id;
+  let genderPreferences = await getConnections(id);
+  let { gendersArray } = await trueGenders(genderPreferences);
+  //console.log("GENDERS STRING", gendersString);
+  const selectProfiles =
+    // `SELECT id, name, gender, image FROM users WHERE ` + `(${gendersArray})`;
+    `SELECT id, name, gender, image FROM users`;
+  console.log(selectProfiles);
+  return db.query(selectProfiles).then((result) => {
+    console.log("SELECT PROFILES", result);
     return result.rows;
   });
 }
 
 function trueGenders(object) {
   //console.log(object);
-  let gendersString = "WHERE ";
+  let gendersString = "";
   let gendersArray = [];
   for (let key in object) {
     if (object[key] === true) {
-      gendersArray.push(key);
-      gendersString += `users.gender = ${key} OR `;
+      if (key == "woman") {
+        gendersArray.push(`gender = female OR`);
+      } else if (key == "man") {
+        gendersArray.push(`gender = male OR`);
+      } else if (key == "non-binary") {
+        gendersArray.push(`gender = nb OR`);
+      } else {
+        gendersArray.push(`gender = nb OR`);
+      }
+      //let i = gendersArray.length;
+      //gendersString += `$${i},`;
       //console.log(gendersString);
     }
   }
-  gendersString = gendersString.slice(0, -3);
+  //gendersString = gendersString.slice(0, -1);
+  gendersArray = gendersArray.join(" ").slice(0, -3);
   //console.log("GENDERS STRING", gendersString);
-  return gendersString;
+  console.log("GENDERS ARRAY", gendersArray);
+  return { gendersArray };
 }
-
-// function getUserId(sessionEmail) {
-//   const userId = `SELECT user_id FROM users WHERE email=($1) )`;
-//   console.log(userId);
-//   return db.query(userId, [sessionEmail]).then((result) => result.rows[0]);
-// }
-
-/**************** Maryam is writing *************** *
-async function getProfiles(email) {
-  const userInfo = await getUser(email);
-  const id = userInfo.id;
-  let genderPreferences = await getConnections(id);
-  genderPrefences = await trueGenders(genderPreferences);
-  const preferredUsers = `SELECT * FROM users WHERE id IN (..);`;
-  return db
-    .query(filteredProfiles, [genderPreferences, userGender])
-    .then((result) => {
-      console.log(result);
-      return result.rows;
-    });
-}
-
-function trueGenders(object) {
-  let gendersArray = [];
-  for (let key in object) {
-    if (object[key] === true) {
-      gendersArray.push(key);
-    }
-  }
-  return gendersArray;
-}
-
-/******************************** */
 
 function getConnections(id) {
   const preferredGenders = `SELECT * FROM connections WHERE user_id=($1)`;
@@ -152,11 +99,9 @@ async function getChat([userOne, userTwo]) {
   let chatString = await db
     .query(chat, [userOne, userTwo])
     .then((result) => result.rows[0]);
-  //console.log("pre-existing user", chatString);
   if (chatString == undefined) {
     chatString = await addChat(userOne, userTwo);
   }
-  //console.log("new user or matching", chatString);
   return chatString;
 }
 
@@ -177,13 +122,9 @@ function findUser(user) {
 
 module.exports = {
   createUser,
-  // createSession,
-  // getSession,
   getUser,
-  //deleteSession,
   getProfiles,
   getChat,
   createUserConnections,
   createUserLanguages,
-  // getUserId,
 };
