@@ -4,9 +4,7 @@ import Layout from "../components/Layout";
 import { useState } from "react";
 import Logo from "../components/Logo";
 import styled from "styled-components";
-// import Cookie from "js-cookie";
 import { parseCookies } from "../lib/parseCookies";
-// import Head from "next/head";
 import {
   PageOne,
   PageTwo,
@@ -31,11 +29,9 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
     case 0:
       const handleNameChange = (event) => {
         updateFormData({ name: event.target.value });
-        console.log(formData);
       };
       const handleEmailChange = (event) => {
         updateFormData({ email: event.target.value });
-        console.log(formData);
       };
       return (
         <PageOne
@@ -48,7 +44,6 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
     case 1:
       const handleGenderChange = (event) => {
         updateFormData({ gender: event.target.value });
-        console.log(formData);
       };
       return (
         <PageTwo
@@ -66,7 +61,6 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
         } else {
           updateFormData(formData.connections.add(checkedValue));
         }
-        console.log(formData);
       };
       return (
         <PageThree
@@ -84,7 +78,6 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
         } else {
           updateFormData(formData.languages.add(checkedValue));
         }
-        console.log(formData);
       };
       return (
         <PageFour
@@ -97,7 +90,6 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
     case 4:
       const handleKindAgreement = (event) => {
         updateFormData({ kindAgreement: event.target.value });
-        console.log(formData);
       };
       return (
         <PageFive
@@ -139,14 +131,6 @@ export default function Signup(props) {
     </>
   );
 }
-
-// Signup.getInitialProps = ({ req }) => {
-//   const cookies = parseCookies(req);
-
-//   return {
-//     initialRememberValue: cookies.rememberMe,
-//   };
-// };
 
 const S = {}
 

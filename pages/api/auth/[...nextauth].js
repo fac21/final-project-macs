@@ -1,10 +1,5 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-//import { Client } from "pg";
-
-// const client = new Client({
-//   connectionString: process.env.DATABASE_URL || "http://localhost:3000",
-// });
 
 const options = {
   site: process.env.DATABASE_URL,
@@ -30,18 +25,11 @@ const options = {
       from: process.env.EMAIL_FROM,
     }),
   ],
-  database: process.env.DATABASE_URL,
-  // database: {
-  //   type: "postgres",
-  //   host: process.env.DATABASE_URL,
-  //   port: 5432,
-  //   ssl: process.env.NODE_ENV === "production",
-  //   extra: process.env.NODE_ENV === "production" && {
-  //     ssl: {
-  //       rejectUnauthorized: false,
-  //     },
-  //   },
-  // },
+  database: {
+    type: "postgres",
+    host: process.env.DATABASE_URL,
+    port: 5432,
+  },
 };
 
 export default (req, res) => NextAuth(req, res, options);
