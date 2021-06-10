@@ -8,6 +8,7 @@ export default function Miniprofile(props) {
         <img src="https://images.pexels.com/photos/2846602/pexels-photo-2846602.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt=""/>
         <div>
           <S.Headline></S.Headline>
+          <img src={props.image} alt="avatar" width={30} height={30} />
           <h2>{props.name}</h2>
           <h4>{props.gender}</h4>
           <p><em>Language, Language, Language, Language, Language</em></p>
