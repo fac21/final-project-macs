@@ -9,7 +9,6 @@
     "start": "next start",
     "test": "cypress open",
     "stylelint": "stylelint",
-    "cypress:open": "cypress open",
     "chat": "nodemon chatserver.js"
   },
   "dependencies": {
@@ -26,6 +25,8 @@
     "moment": "^2.29.1",
     "next": "10.2.3",
     "next-auth": "^3.25.0",
+    "only": "0.0.2",
+    "package-lock": "^1.0.5",
     "pg": "^8.6.0",
     "rc-steps": "^4.1.3",
     "react": "17.0.2",
@@ -36,7 +37,7 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
-    "cypress": "^7.4.0",
+    "cypress": "^7.5.0",
     "eslint": "^7.27.0",
     "eslint-config-react-minimal": "^2.0.0",
     "eslint-plugin-import": "^2.23.4",
