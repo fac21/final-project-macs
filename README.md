@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Tech stack
 - React 
   - react-router-dom
-- npm packages: Husky, Commitizen
+- npm packages:
   - Next-auth
   - Socket.io
   - Express
@@ -34,8 +34,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - Style-components
   - Css-doodle
   - Material-ui/core
-- Deployment: Vercel
-- Testing: Cypress
+- Deployment: 
+  - Vercel
+- Testing: 
+  - Cypress
 - Management:
   - Kanban
   - Miro
