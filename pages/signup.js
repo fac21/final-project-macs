@@ -117,6 +117,7 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
 
 export default function Signup(props) {
   const [getPageNum, setPageNum] = useState(0);
+  
   return (
     <>
       <Header />

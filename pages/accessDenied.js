@@ -15,7 +15,7 @@ export default function AccessDenied() {
       <h2>Oops</h2>
       </S.div>
       <br/>
-        Get out you twat
+        You need access to view this page, please log in!
         </Layout>
         
         </>

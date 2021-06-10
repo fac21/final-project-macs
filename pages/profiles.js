@@ -8,8 +8,22 @@ import { getSession, useSession } from "next-auth/client";
 import Logo from "../components/Logo";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 export default function Profiles(props) {
+  const [session, loading] = useSession()
+  const router = useRouter()
+
+ useEffect(() => {
+  if (!session) {
+    router.push('/accessDenied')
+  }
+ }, [])
+
+ if (!session) {
+   return null
+ }
+
   return (
     <>
       <Header />
@@ -36,12 +50,24 @@ function profilesInfo(props) {
   });
 }
 
+// export async function getServerSideProps(context) {
+//   let sessionInfo = await getSession(context);
+//   let email = sessionInfo.user.email;
+//   let profiles = await getProfiles(email);
+//   profiles = JSON.stringify(profiles);
+//   return { props: { profiles } };
+// }
+
 export async function getServerSideProps(context) {
   let sessionInfo = await getSession(context);
-  let email = sessionInfo.user.email;
-  let profiles = await getProfiles(email);
-  profiles = JSON.stringify(profiles);
-  return { props: { profiles } };
+  if (sessionInfo) {
+    let email = sessionInfo.user.email;
+    let profiles = await getProfiles(email);
+    profiles = JSON.stringify(profiles);
+    return { props: { profiles } };
+  } else {
+    return { props: {} };
+  }
 }
 
 const S = {};
