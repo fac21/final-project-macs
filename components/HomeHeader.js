@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { signIn, signOut, useSession } from "next-auth/client";
-import { getUserId } from "../database/model";
 
 export default function HomeHeader(props) {
   const [session, loading] = useSession();
@@ -27,7 +26,6 @@ export default function HomeHeader(props) {
       {session && (
         <>
           Hello {session.user.name} <br />
-          {/* <button onClick={props}>click</button> */}
           <button onClick={signOut}>Sign out</button>
         </>
       )}
