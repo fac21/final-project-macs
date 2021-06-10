@@ -1,5 +1,5 @@
 [Connecta](https://final-project-chat-app.vercel.app/)
-<img src="https://github.com/fac21/final-project-macs/blob/main/public/images/Landing-page.png" width="150px" align="right" />
+<img src="https://github.com/fac21/final-project-macs/blob/main/public/images/Landing-page.png" width="125px" align="right" />
 
 
 
