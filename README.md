@@ -21,7 +21,7 @@ yarn dev
 yarn chat
 ```
 
-to start the live server and view the website locally.
+To start the live server and view the website locally.
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Using the App
