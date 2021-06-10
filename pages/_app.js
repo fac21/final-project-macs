@@ -18,6 +18,8 @@ function App({ Component, pageProps }) {
   const updateFormData = (newData) => {
     setFormData({ ...formData, ...newData });
   };
+
+
   return (
     <Provider session={pageProps.session}>
       <Component
@@ -28,5 +30,7 @@ function App({ Component, pageProps }) {
     </Provider>
   );
 }
+
+
 
 export default App;
