@@ -1,5 +1,6 @@
 [Connecta](https://final-project-chat-app.vercel.app/)
 
+
 This project was created to make it easier for people especially imigrants landed to London to learn speaking english more efficiently while meeting new people, exchanging their own culture and language with them and keeping up on socialising. The app provides event suggestions based on the common interests and chat board to get connected based on the learning targets.    
 
 
