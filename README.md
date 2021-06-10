@@ -24,13 +24,22 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Using the App
 
 ## Tech stack
-- React
- -- React router
+- React 
+  - react-router-dom
 - npm packages: Husky, Commitizen
-- Styling: Style-components
+  - Next-auth
+  - Socket.io
+  - Express
+- Styling: 
+  - Style-components
+  - Css-doodle
+  - Material-ui/core
 - Deployment: Vercel
 - Testing: Cypress
-Management: Jira
+- Management:
+  - Kanban
+  - Miro
+  - Figma
 
 ## Authors:
 Amy - Scrum Facilitator
