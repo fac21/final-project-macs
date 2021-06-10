@@ -132,14 +132,6 @@ export default function Signup(props) {
   );
 }
 
-// Signup.getInitialProps = ({ req }) => {
-//   const cookies = parseCookies(req);
-
-//   return {
-//     initialRememberValue: cookies.rememberMe,
-//   };
-// };
-
 const S = {}
 
 S.div = styled.div`

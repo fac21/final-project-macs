@@ -4,9 +4,6 @@ import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import { signIn, signOut, useSession } from "next-auth/client";
 
-// import userGen from "username-generator"
-// import { Button, Input } from 'reactstrap';
-
 const ENDPOINT = "http://127.0.0.1:4001";
 const socket = socketIOClient(ENDPOINT);
 
@@ -22,16 +19,11 @@ export default function Connect(props) {
   const [recMsg, setRecMsg] = useState({
     listMsg: [],
   });
-  // const [loggedUser, setLoggedUser] = useState("logged in user");
   useEffect(() => {
     // list of connected users
     socket.on("users", (data) => {
       setUser({ usersList: JSON.parse(data) });
     });
-    // get the logged user
-    // socket.on("connecteduser", (data) => {
-    //   setLoggedUser(JSON.parse(data));
-    // });
 
     // we get the messages
     socket.on("message", (data) => {
