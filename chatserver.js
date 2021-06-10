@@ -3,7 +3,6 @@ const http = require("http");
 const socketIo = require("socket.io");
 const port = 4001;
 const index = require("./routes");
-//const index = express.Router();
 const moment = require("moment");
 const app = express();
 const server = http.createServer(app);
@@ -20,9 +19,7 @@ const io = socketIo(server, {
 let users = [];
 io.on("connection", (socket) => {
   socket.on("joinRoom", ({ roomID, userName }) => {
-    //console.log("room joined");
     socket.join(roomID);
-    console.log("username received:", userName);
     users.push({
       id: socket.id,
       userName: userName,
@@ -30,8 +27,6 @@ io.on("connection", (socket) => {
     });
 
     socket.on("sendMsg", (msgTo) => {
-      console.log("recieve message", msgTo);
-      console.log("users", users);
       const minutes = new Date().getMinutes();
       io.to(roomID).emit(
         "message",

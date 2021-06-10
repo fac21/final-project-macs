@@ -14,10 +14,6 @@ export default function Connect(props) {
   const [session, loading] = useSession();
 
   const room = props.chatString;
-  // socket.on("connection", function () {
-  //   console.log("connected");
-  //   socket.emit("room", room);
-  // });
 
   const [user, setUser] = useState({
     usersList: null,
@@ -39,13 +35,11 @@ export default function Connect(props) {
 
     // we get the messages
     socket.on("message", (data) => {
-      //console.log("data", data);
       let listMessages = recMsg.listMsg;
       //add new message into array
       listMessages.push(JSON.parse(data));
       //update received message to be the list of messages
       setRecMsg({ listMsg: listMessages });
-      console.log(recMsg);
     });
   }, []);
 
@@ -103,9 +97,5 @@ export default function Connect(props) {
 
 export function getServerSideProps(context) {
   const chatString = context.query.chatString;
-  //console.log(chatString);
-  // socketIo.on("connection", (socket) => {
-  //   socket.join(chatString);
-  // });
   return { props: { chatString } };
 }
