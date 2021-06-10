@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
+// import { getUserId } from "../database/model";
 
 export default function HomeHeader(props) {
   const [session, loading] = useSession();

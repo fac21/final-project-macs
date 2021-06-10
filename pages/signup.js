@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 import { useState } from "react";
@@ -60,11 +60,11 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
 
     case 2:
       const handleGenderPreference = (event) => {
-        const checkedValue = event.target.value
+        const checkedValue = event.target.value;
         if (formData.connections.has(event.target.value)) {
-          updateFormData(formData.connections.delete(checkedValue))
+          updateFormData(formData.connections.delete(checkedValue));
         } else {
-        updateFormData(formData.connections.add(checkedValue));
+          updateFormData(formData.connections.add(checkedValue));
         }
         console.log(formData);
       };
@@ -78,11 +78,11 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
 
     case 3:
       const handleLanguages = (event) => {
-        const checkedValue = event.target.value
+        const checkedValue = event.target.value;
         if (formData.languages.has(event.target.value)) {
-          updateFormData(formData.languages.delete(checkedValue))
+          updateFormData(formData.languages.delete(checkedValue));
         } else {
-        updateFormData(formData.languages.add(checkedValue));
+          updateFormData(formData.languages.add(checkedValue));
         }
         console.log(formData);
       };
