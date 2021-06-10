@@ -14,6 +14,8 @@ import {
   PageFour,
   PageFive,
 } from "../components/SignUpPages";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 
 function renderFormPage(formPage, formData, updateFormData, setPageNum) {
   const incrementPage = (e) => {
@@ -115,7 +117,6 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
 
 export default function Signup(props) {
   const [getPageNum, setPageNum] = useState(0);
-
   return (
     <>
       <Header />
@@ -124,8 +125,8 @@ export default function Signup(props) {
       <h2>Sign Up</h2>
       </S.div>
       <Layout>
-        <div>
-          <form>
+        <S.FormContainer>
+          <S.Form>
             <h3>Page {getPageNum + 1} of 5</h3>
             {renderFormPage(
               getPageNum,
@@ -133,8 +134,8 @@ export default function Signup(props) {
               props.updateFormData,
               setPageNum
             )}
-          </form>
-        </div>
+          </S.Form>
+        </S.FormContainer>
       </Layout>
     </>
   );
@@ -161,3 +162,21 @@ position: relative;
   left: 1rem;
 }
 `;
+
+S.FormContainer = styled.div`
+width: 100%;
+`
+
+S.Form = styled.form`
+font-size: 1.2rem;
+min-width: 300px;
+max-width: 500px;
+margin: 0 0 0 12%;
+> * > button {
+  margin: 1rem 0.5rem 0 0;
+}
+> * {
+  display: flex;
+  margin-top: 0.5rem;
+}
+`

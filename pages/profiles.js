@@ -4,9 +4,10 @@ import { getProfiles } from "/database/model.js";
 import Miniprofile from "../components/MiniProfile";
 import Link from "next/link";
 import User from "./profiles/[user]";
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import Logo from "../components/Logo";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 export default function Profiles(props) {
   return (

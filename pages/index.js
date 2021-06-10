@@ -63,6 +63,7 @@ S.a = styled.a`
   border-radius: 1rem ;
   transform: scale(1);
   transition: filter .5s, transform .5s;
+  cursor: pointer;
 `;
 
 S.section = styled.section`
@@ -93,6 +94,7 @@ S.section = styled.section`
     font-size: 2rem;
     margin: 0;
     width: 300px;
+    cursor: pointer;
   }
   > aside > p {
     color: #fcf7f8;
@@ -100,11 +102,12 @@ S.section = styled.section`
     margin-top: 0.4rem;
     padding: 0 0.8rem;
     font-weight: 200;
+    cursor: pointer;
   }
 
   &:hover {
     .background-image {
-      filter: brightness(.8) blur(2px);
+      filter: brightness(.8) blur(1.5px);
       transform: scale(1.05);
     }
   }

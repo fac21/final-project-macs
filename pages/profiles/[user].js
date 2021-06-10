@@ -8,7 +8,19 @@ import { getSession } from "next-auth/client";
 export default function User(props) {
   //console.log("props User", props);
   //console.log("props User chat String", props.chatString.hash_string);
-  const router = useRouter();
+  const [session, loading] = useSession()
+  const router = useRouter()
+
+ useEffect(() => {
+  if (!session) {
+    router.push('/accessDenied')
+  }
+ }, [])
+
+ if (!session) {
+   return null
+ }
+
   return (
     <>
       <Header />
