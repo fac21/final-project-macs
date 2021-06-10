@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 import { useState } from "react";
+import Logo from "../components/Logo";
+import styled from "styled-components";
 // import Cookie from "js-cookie";
 import { parseCookies } from "../lib/parseCookies";
 // import Head from "next/head";
@@ -117,9 +119,12 @@ export default function Signup(props) {
   return (
     <>
       <Header />
+      <S.div>
+      <Logo size={"5"} />
+      <h2>Sign Up</h2>
+      </S.div>
       <Layout>
         <div>
-          <h1> Sign Up</h1>
           <form>
             <h3>Page {getPageNum + 1} of 5</h3>
             {renderFormPage(
@@ -142,3 +147,17 @@ export default function Signup(props) {
 //     initialRememberValue: cookies.rememberMe,
 //   };
 // };
+
+const S = {}
+
+S.div = styled.div`
+margin: 2rem 0 0 1.5rem;
+position: relative;
+> h2 {
+  font-family: 'Lobster', cursive;
+  position: absolute;
+  font-size: 2rem;
+  top: 0;
+  left: 1rem;
+}
+`;

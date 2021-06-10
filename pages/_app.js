@@ -3,6 +3,11 @@ import { Provider } from "next-auth/client";
 import { useState } from "react";
 import { FormGroup } from "@material-ui/core";
 
+if (typeof window === 'object') {
+  // Only load CSS doodle in browser environment
+     require('css-doodle')
+  
+}
 //To avoid checking the session twice on pages that support both server and client-side rendering.
 function App({ Component, pageProps }) {
   const [formData, setFormData] = useState({
