@@ -9,6 +9,7 @@ const socket = socketIOClient(ENDPOINT);
 
 export default function Connect(props) {
   const [session, loading] = useSession();
+  const router = useRouter()
 
   const room = props.chatString;
 
@@ -46,6 +47,17 @@ export default function Connect(props) {
       socket.emit("leaveRoom");
     };
   }, []);
+
+
+  useEffect(() => {
+   if (!session) {
+     router.push('/accessDenied')
+   }
+  }, [])
+ 
+  if (!session) {
+    return null
+  }
 
   return (
     <>
