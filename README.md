@@ -22,6 +22,7 @@ to start the live server and view the website locally.
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Using the App
+The app has been created of 5 steps sign up process tailored to the needs of the users, passwordless (verificated) log-in, and one-on-one chat experience aiming safety and inclusive enviorenment for them. 
 
 ## Tech stack
 - React 
