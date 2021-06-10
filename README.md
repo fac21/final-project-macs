@@ -42,8 +42,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - Figma
 
 ## Authors:
-Amy - Scrum Facilitator
-Maryam - DevOps
-Sevda - QA
-Craig - UX/UI
+- Amy - Scrum Facilitator  
+- Maryam - DevOps  
+- Sevda - QA  
+- Craig - UX/UI  
 
