@@ -33,6 +33,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="description" content="Language Exchange Homepage" />
+
         </Head>
         <body>
           <Main />

@@ -102,6 +102,7 @@ function renderFormPage(formPage, formData, updateFormData, setPageNum) {
           handleKindAgreement={handleKindAgreement}
           incrementPage={incrementPage}
           decrementPage={decrementPage}
+          formData={formData}
         />
       );
 
