@@ -14,6 +14,7 @@
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.14.2",
     "@material-ui/core": "^4.11.4",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.4.1",
     "cors": "^2.8.5",
