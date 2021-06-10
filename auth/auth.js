@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { createSession, createUser, getUser } from "../../../database/model";
+import { createSession, createUser, getUser } from "../database/model";
 import crypto from "crypto";
 
 // will export so cookie can be set in diff places
