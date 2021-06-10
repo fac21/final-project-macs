@@ -25,11 +25,7 @@ const options = {
       from: process.env.EMAIL_FROM,
     }),
   ],
-  database: {
-    type: "postgres",
-    host: process.env.DATABASE_URL,
-    port: 5432,
-  },
+  database: process.env.DATABASE_URL,
 };
 
 export default (req, res) => NextAuth(req, res, options);
