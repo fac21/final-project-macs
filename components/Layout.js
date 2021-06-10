@@ -11,11 +11,11 @@ export default function Layout({children}) {
 const S = {}
 
 S.Main = styled.main`
-  background-color: yellowgreen;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   > * {
-      margin: 1rem 0;
+      margin: 3.5rem 0 0 0;
   }
 `;

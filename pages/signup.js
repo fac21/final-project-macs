@@ -2,113 +2,111 @@ import React from "react";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 import { useState } from "react";
-import Cookie from "js-cookie";
+import Logo from "../components/Logo";
+import styled from "styled-components";
+// import Cookie from "js-cookie";
 import { parseCookies } from "../lib/parseCookies";
-import Head from "next/head";
+// import Head from "next/head";
+import {
+  PageOne,
+  PageTwo,
+  PageThree,
+  PageFour,
+  PageFive,
+} from "../components/SignUpPages";
 
-function renderFormPage(formPage) {
+function renderFormPage(formPage, formData, updateFormData, setPageNum) {
+  const incrementPage = (e) => {
+    e.preventDefault();
+    setPageNum((currentPage) => Math.min(currentPage + 1, 4));
+    return;
+  };
+  const decrementPage = (e) => {
+    e.preventDefault();
+    setPageNum((currentPage) => Math.max(currentPage - 1, 0));
+    return;
+  };
+
   switch (formPage) {
-
     case 0:
+      const handleNameChange = (event) => {
+        updateFormData({ name: event.target.value });
+        console.log(formData);
+      };
+      const handleEmailChange = (event) => {
+        updateFormData({ email: event.target.value });
+        console.log(formData);
+      };
       return (
-        <>
-          <label htmlFor="name">
-            Name
-            <span aria-hidden="true">*</span>
-          </label>
-          <input id="name" name="name" type="text" required />
-          <label htmlFor="email">
-            Email address
-            <span aria-hidden="true">*</span>
-          </label>
-          <input id="email" name="email" type="email" required />
-        </>
+        <PageOne
+          handleNameChange={handleNameChange}
+          handleEmailChange={handleEmailChange}
+          incrementPage={incrementPage}
+        />
       );
 
     case 1:
+      const handleGenderChange = (event) => {
+        updateFormData({ gender: event.target.value });
+        console.log(formData);
+      };
       return (
-        <>
-        <label htmlFor="password">
-        Gender
-        <span aria-hidden="true">*</span>
-      </label>
-      <input
-        id="gender"
-        name="gender"
-        type="gender"
-        aria-describedby="genderedRequirements"
-        required
-      />
-      </>
+        <PageTwo
+          handleGenderChange={handleGenderChange}
+          incrementPage={incrementPage}
+          decrementPage={decrementPage}
+        />
       );
 
     case 2:
+      const handleGenderPreference = (event) => {
+        const checkedValue = event.target.value
+        if (formData.connections.has(event.target.value)) {
+          updateFormData(formData.connections.delete(checkedValue))
+        } else {
+        updateFormData(formData.connections.add(checkedValue));
+        }
+        console.log(formData);
+      };
       return (
-        <>
-        <label htmlFor="password">
-        Who would you like to connect with?
-        <span aria-hidden="true">*</span>
-      </label>
-      <input
-        id="genderPreference"
-        name="genderPreference"
-        type="genderPreference"
-        aria-describedby="genderPreference"
-        required
-      />
-      </>
+        <PageThree
+          handleGenderPreference={handleGenderPreference}
+          incrementPage={incrementPage}
+          decrementPage={decrementPage}
+        />
       );
 
-      case 3:
-        return (
-          <>
-          <label htmlFor="password">
-          What languages do you speak?
-          <span aria-hidden="true">*</span>
-        </label>
-        <input
-          id="genderPreference"
-          name="genderPreference"
-          type="genderPreference"
-          aria-describedby="genderPreference"
-          required
+    case 3:
+      const handleLanguages = (event) => {
+        const checkedValue = event.target.value
+        if (formData.languages.has(event.target.value)) {
+          updateFormData(formData.languages.delete(checkedValue))
+        } else {
+        updateFormData(formData.languages.add(checkedValue));
+        }
+        console.log(formData);
+      };
+      return (
+        <PageFour
+          handleLanguages={handleLanguages}
+          incrementPage={incrementPage}
+          decrementPage={decrementPage}
         />
-        </>
-        );
+      );
 
-        case 4:
-          return (
-            <>
-            <label htmlFor="password">
-            What languages do you want to learn?
-            <span aria-hidden="true">*</span>
-          </label>
-          <input
-            id="genderPreference"
-            name="genderPreference"
-            type="genderPreference"
-            aria-describedby="genderPreference"
-            required
-          />
-          </>
-          );
-
-          case 4:
-            return (
-              <>
-              <label htmlFor="password">
-              I agree to be kind
-              <span aria-hidden="true">*</span>
-            </label>
-            <input
-              id="genderPreference"
-              name="genderPreference"
-              type="genderPreference"
-              aria-describedby="genderPreference"
-              required
-            />
-            </>
-            );
+    case 4:
+      const handleKindAgreement = (event) => {
+        updateFormData({ kindAgreement: event.target.value });
+        console.log(formData);
+      };
+      return (
+        <PageFive
+          handleKindAgreement={handleKindAgreement}
+          incrementPage={incrementPage}
+          decrementPage={decrementPage}
+          formData={formData}
+        />
+      );
 
     default:
       break;
@@ -118,82 +116,48 @@ function renderFormPage(formPage) {
 export default function Signup(props) {
   const [getPageNum, setPageNum] = useState(0);
 
-  const incrementPage = (e) => {
-    e.preventDefault();
-    setPageNum((currentPage) => currentPage + 1);
-    return;
-  };
-  const decrementPage = (e) => {
-    e.preventDefault();
-    setPageNum((currentPage) => currentPage - 1);
-    return;
-  };
   return (
-    <Layout>
-      <div>
-        <Head>
-          <title>Title</title>
-          <meta name="description" content="Generated by create next app" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <h1> Sign Up</h1>
-        <form>
-          <h2>Page {getPageNum + 1} of x</h2>
-          {renderFormPage(getPageNum)}
-          <button onClick={decrementPage}>Previous</button>
-          <button onClick={incrementPage}>Next</button>
-        </form>
-        {/* <div>
-          <h1>Sign up</h1>
-          <form action="" method="POST">
-
-
-
-            <button type="submit">
-              submit
-            </button>
+    <>
+      <Header />
+      <S.div>
+      <Logo size={"5"} />
+      <h2>Sign Up</h2>
+      </S.div>
+      <Layout>
+        <div>
+          <form>
+            <h3>Page {getPageNum + 1} of 5</h3>
+            {renderFormPage(
+              getPageNum,
+              props.formData,
+              props.updateFormData,
+              setPageNum
+            )}
           </form>
-        </div> */}
-      </div>
-    </Layout>
+        </div>
+      </Layout>
+    </>
   );
 }
-
-Signup.getInitialProps = ({ req }) => {
-  const cookies = parseCookies(req);
-
-  return {
-    initialRememberValue: cookies.rememberMe,
-  };
-};
-
-//     <>
-//       <Head>
-//         <title>Title</title>
-//         <meta name="description" content="Generated by create next app" />
-//       </Head>
-//       <Header />
-//       <Layout>
-//         <form>
-//           username
-//           <input
-//             type="text"
-//             name="usernameInput"
-//             onKeyUp={(e) => setUsername(e.target.value)}
-//           />
-//           <button type="submit" onClick={() => updateCookie()}>
-//             submit
-//           </button>
-//         </form>
-//       </Layout>
-//     </>
-//   );
-// };
 
 // Signup.getInitialProps = ({ req }) => {
 //   const cookies = parseCookies(req);
 
 //   return {
-//     initialValue: cookies
+//     initialRememberValue: cookies.rememberMe,
 //   };
 // };
+
+const S = {}
+
+S.div = styled.div`
+margin: 2rem 0 0 1.5rem;
+position: relative;
+> h2 {
+  font-family: 'Lobster', cursive;
+  position: absolute;
+  font-size: 2rem;
+  top: 0;
+  left: 1rem;
+}
+`;
