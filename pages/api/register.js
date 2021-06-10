@@ -1,8 +1,16 @@
-import { response } from "express";
-import { createUser } from "../../database/model";
+//import { response } from "express";
+import {
+  createUser,
+  createUserConnections,
+  createUserLanguages,
+} from "../../database/model";
 
-export default function handler(req, res) {
-  console.log(req.body);
-  //createUser(req.body.name, req.body.email, req.body.gender);
+export default async function handler(req, res) {
+  console.log("BODY", JSON.parse(req.body));
+  let body = JSON.parse(req.body);
+  let id = await createUser(body.name, body.email, body.gender);
+  id = id.id;
+  createUserConnections(id, body.connections);
+  createUserLanguages(id, body.languages);
   res.redirect("/");
 }

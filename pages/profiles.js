@@ -4,6 +4,7 @@ import { getProfiles } from "/database/model.js";
 import Miniprofile from "../components/MiniProfile";
 import Link from "next/link";
 import User from "./profiles/[user]";
+import { getSession } from "next-auth/client";
 import Logo from "../components/Logo";
 import styled from "styled-components";
 
@@ -12,8 +13,8 @@ export default function Profiles(props) {
     <>
       <Header />
       <S.div>
-      <Logo size={"5"} />
-      <h2>Profiles</h2>
+        <Logo size={"5"} />
+        <h2>Profiles</h2>
       </S.div>
       <Layout>
         <S.section>{profilesInfo(props)}</S.section>
@@ -34,8 +35,10 @@ function profilesInfo(props) {
   });
 }
 
-export async function getServerSideProps() {
-  let profiles = await getProfiles();
+export async function getServerSideProps(context) {
+  let sessionInfo = await getSession(context);
+  let email = sessionInfo.user.email;
+  let profiles = await getProfiles(email);
   profiles = JSON.stringify(profiles);
   return { props: { profiles } };
 }
@@ -50,13 +53,13 @@ S.section = styled.section`
 `;
 
 S.div = styled.div`
-margin: 2rem 0 0 1.5rem;
-position: relative;
-> h2 {
-  font-family: 'Lobster', cursive;
-  position: absolute;
-  font-size: 2rem;
-  top: 0;
-  left: 1rem;
-}
+  margin: 2rem 0 0 1.5rem;
+  position: relative;
+  > h2 {
+    font-family: "Lobster", cursive;
+    position: absolute;
+    font-size: 2rem;
+    top: 0;
+    left: 1rem;
+  }
 `;
