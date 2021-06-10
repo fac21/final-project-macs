@@ -4,7 +4,6 @@ import { nextCsrf } from "next-csrf";
 
 const options = {
   site: process.env.DATABASE_URL,
-  secret: process.env.CSRF_SECRET,
   session: {
     jwt: true,
     maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -30,5 +29,4 @@ const options = {
   database: process.env.DATABASE_URL,
 };
 
-export const { csrf, csrfToken } = nextCsrf(options);
 export default (req, res) => NextAuth(req, res, options);
