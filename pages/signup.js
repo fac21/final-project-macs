@@ -150,13 +150,14 @@ position: relative;
 
 S.FormContainer = styled.div`
 width: 100%;
+display: flex;
+justify-content: center;
 `
 
 S.Form = styled.form`
 font-size: 1.2rem;
 min-width: 300px;
 max-width: 500px;
-margin: 0 0 0 12%;
 > * > button {
   margin: 1rem 0.5rem 0 0;
 }
