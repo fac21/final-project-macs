@@ -99,11 +99,9 @@ async function getChat([userOne, userTwo]) {
   let chatString = await db
     .query(chat, [userOne, userTwo])
     .then((result) => result.rows[0]);
-  //console.log("pre-existing user", chatString);
   if (chatString == undefined) {
     chatString = await addChat(userOne, userTwo);
   }
-  //console.log("new user or matching", chatString);
   return chatString;
 }
 
@@ -124,13 +122,9 @@ function findUser(user) {
 
 module.exports = {
   createUser,
-  // createSession,
-  // getSession,
   getUser,
-  //deleteSession,
   getProfiles,
   getChat,
   createUserConnections,
   createUserLanguages,
-  // getUserId,
 };
