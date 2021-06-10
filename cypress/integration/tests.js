@@ -12,9 +12,8 @@ context('Sign Up', () => {
         .contains('Sign Up')
         .click()
     });
-  });
 
-it("can sign up", () => {
+  it("can sign up", () => {
   cy.visit("/");
   cy.get("a").contains("Sign Up").click();
   cy.visit("/signup");
@@ -32,7 +31,9 @@ it("can sign up", () => {
   cy.get("button").contains("Next").click();
   cy.get("input[name='kindAgreement']").check();
   cy.get("button").contains("Submit").click();
+  });
 });
+
 
 // it("can log in", () => {
 //   cy.visit("/");
