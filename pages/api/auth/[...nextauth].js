@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import { nextCsrf } from "next-csrf";
 
 const options = {
   site: process.env.DATABASE_URL,
