@@ -12,6 +12,16 @@ export default function Connect(props) {
   const [session, loading] = useSession();
   const router = useRouter()
 
+  useEffect(() => {
+    if (!session) {
+      router.push("/accessDenied");
+    }
+  }, []);
+
+  if (!session) {
+    return null;
+  }
+  
   const room = props.chatString;
 
   const [user, setUser] = useState({
